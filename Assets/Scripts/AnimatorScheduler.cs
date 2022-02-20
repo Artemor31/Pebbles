@@ -10,6 +10,8 @@ namespace Gameplay
         [SerializeField] private Animator _handIcon;
         [SerializeField] private Animator _backPanel;
         [SerializeField] private Animator _cards;
+        [SerializeField] private Animator _playerHand;
+        [SerializeField] private Animator _enemyHand;
 
         public void StartChain()
         {
@@ -35,6 +37,22 @@ namespace Gameplay
             _cards.enabled = true;
             _cards.Play("start");
             Invoke(nameof(DisableAnimatorCards), 2);
+        }
+
+        public void ShowPlayerFist()
+        {
+            _playerHand.Play("show");
+        }
+
+        public void ShowEnemyFist()
+        {
+            _enemyHand.Play("show");
+        }
+
+        public void ShowHands()
+        {
+            _enemyHand.Play("showHand");
+            _playerHand.Play("showHand");
         }
 
         private void DisableAnimatorCards()

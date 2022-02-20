@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace Gameplay
@@ -25,12 +25,9 @@ namespace Gameplay
             throw new UnityException("Not enough positions");
         }
 
-
-        [Serializable]
-        private class PebblesPositions
+        public int GetPebblesCount()
         {
-            public bool Empty;
-            public Transform Transform;
+            return _positions.Count(position => position.Empty == false);
         }
     }
 }

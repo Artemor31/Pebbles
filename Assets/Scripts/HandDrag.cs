@@ -23,7 +23,7 @@ namespace Gameplay
             _drag = false;
             if (transform.position.y - _minY < 0.001f)
             {
-                FindObjectOfType<GameManager>().StartCardsState();
+                GameManager.Instance.StartCardsState();
             }
             transform.position = _startPos;
         }

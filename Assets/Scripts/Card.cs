@@ -22,6 +22,7 @@ namespace Gameplay
             _drag = true;
             _startPos = transform.position;
             _minY = _targetPosition.y;
+            transform.localScale *= 1.3f;
         }
 
         public void EndDrag()
@@ -29,12 +30,14 @@ namespace Gameplay
             _drag = false;
             if (transform.position.y - _minY < 0.001f)
             {
-                Debug.Log("card selected");
+                GameManager.Instance.PickedCard(_value);
+                GameManager.Instance.ShowHands();
             }
             else
             {
                 _greenCover.color = new Color(_greenCover.color.r, _greenCover.color.g, _greenCover.color.b, 0);
                 transform.position = _startPos;
+                transform.localScale /= 1.3f;
             }
         }
 
@@ -49,11 +52,11 @@ namespace Gameplay
 
                 var x = 100 / Math.Abs(_targetPosition.y - _startPos.y) * Math.Abs(transform.position.y - _startPos.y);
                 var percentage = x / 100;
-                if (_isRight)
-                    x = _startPos.x - percentage * Math.Abs(_targetPosition.x - _startPos.x);
-                else
-                    x = _startPos.x + percentage * Math.Abs(_targetPosition.x - _startPos.x);
-                
+
+                x = _isRight
+                    ? _startPos.x - percentage * Math.Abs(_targetPosition.x - _startPos.x)
+                    : _startPos.x + percentage * Math.Abs(_targetPosition.x - _startPos.x);
+
                 transform.position = new Vector3(x, y, transform.position.z);
 
                 _greenCover.color = new Color(_greenCover.color.r, _greenCover.color.g, _greenCover.color.b, percentage);
