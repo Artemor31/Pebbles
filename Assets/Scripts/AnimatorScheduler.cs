@@ -10,8 +10,18 @@ namespace Gameplay
 
         public void StartChain()
         {
+            _handIcon.enabled = true;
             _pebbles.Play("start");
             _handIcon.Play("start");
+
+            var length = _handIcon.GetCurrentAnimatorStateInfo(0).length;
+            
+            Invoke(nameof(DisableAnimator), length * 1.1f);
+        }
+
+        private void DisableAnimator()
+        {
+            _handIcon.enabled = false;
         }
 
         private void Start()

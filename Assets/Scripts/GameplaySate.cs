@@ -5,5 +5,5 @@
         SelectPebbles,
         SelectCard,
         Compare
-    }    
+    }
 }
