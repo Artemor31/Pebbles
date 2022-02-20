@@ -7,6 +7,7 @@ namespace Gameplay
         private Camera _camera;
         private Pebble _pebble;
         private HandDrag _hand;
+        private Card _card;
 
         private void Awake()
         {
@@ -18,6 +19,8 @@ namespace Gameplay
             if (Input.GetMouseButtonDown(0))
             {
                 var hits = CastRay(out var length);
+                
+                CheckCardClick(hits, length);
                 for (var i = 0; i < length; i++)
                 {
                     CheckPebbleClick(hits[i]);
@@ -28,12 +31,42 @@ namespace Gameplay
             if (Input.GetMouseButtonUp(0))
             {
                 CheckHandUp();
+                if (_card != null)
+                {
+                    _card.EndDrag();
+                    _card = null;
+                }
                 
                 var hits = CastRay(out var length);
                 for (var i = 0; i < length; i++)
                 {
                     CheckPebbleUp(hits, i);
                 }
+            }
+        }
+
+        private void CheckCardClick(RaycastHit[] hits, int length)
+        {
+            Card topCard = null;
+            var z = float.MaxValue;
+            for (var i = length - 1; i >= 0; i--)
+            {
+                if (hits[i].transform.TryGetComponent(out Card card))
+                {
+                    var positionZ = card.transform.position.z;
+                    
+                    if (positionZ < z)
+                    {
+                        z = positionZ;
+                        topCard = card;
+                    }
+                }
+            }
+
+            if (topCard != null)
+            {
+                _card = topCard;
+                _card.StartDrag();
             }
         }
 
