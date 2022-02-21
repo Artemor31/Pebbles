@@ -31,7 +31,6 @@ namespace Gameplay
         {
             _cards.enabled = true;
             _cards.Play("start");
-            Invoke(nameof(DisableAnimatorCards), 2);
         }
 
         public void ShowPlayerFist()
@@ -48,11 +47,6 @@ namespace Gameplay
         {
             _enemyHand.Play("showHand");
             _playerHand.Play("showHand");
-        }
-
-        private void DisableAnimatorCards()
-        {
-            _cards.enabled = false;
         }
     }
 }

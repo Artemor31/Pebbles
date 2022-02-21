@@ -77,11 +77,9 @@ namespace Gameplay
         public IEnumerator PickCard()
         {
             var seconds = Random.Range(3, 5);
-            Debug.Log("seconds = " + seconds);
             yield return new WaitForSeconds(seconds);
             PickCard(false);
             GameManager.Instance.MarkEnemyCard(_pickedCard);
-            Debug.Log(_pickedCard + "_pickedCard");
         }
     }
 }
