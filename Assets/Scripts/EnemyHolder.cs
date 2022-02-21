@@ -7,15 +7,17 @@ namespace Gameplay
     public class EnemyHolder : MonoBehaviour
     {
         public static EnemyHolder Instance;
+        
+        public int PebblesPicked => _pebblesPicked;
+        public int PickedCard => _pickedCard;
 
         [SerializeField] private List<SpriteRenderer> _pebbleInHand;
-        public int PebblesHidden { get; private set; }
-        
         private int _pebblesLeft;
-        private int _cardValuePicked;
-        
+        private int _pickedCard;
+        private int _pebblesPicked;
+        public bool Waiting { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
             _pebblesLeft = 3;
             Instance = FindObjectOfType<EnemyHolder>();
@@ -24,26 +26,62 @@ namespace Gameplay
         public void HidePebbles()
         {
             var max = _pebblesLeft + 1;
-            PebblesHidden = Random.Range(0, max);
+            _pebblesPicked = Random.Range(0, max);
+        }
+
+        public void PickCard(bool firstTurn)
+        {
+            var player = PlayerHolder.Instance;
+            
+            if (firstTurn)
+            {
+                var maxInclusive = _pebblesPicked + player.PebblesLeft + 1;
+                _pickedCard = Random.Range(_pebblesPicked, maxInclusive);
+            }
+            else
+            {
+                var stMax = player.PebblesLeft;
+
+                var min = player.PickedCard <= stMax
+                           ? _pebblesPicked
+                           : _pebblesPicked + (player.PickedCard - stMax);
+
+                var max = player.PickedCard > 0
+                           ? player.PebblesLeft + _pebblesPicked
+                           : player.PickedCard + _pebblesPicked;
+
+                _pickedCard = Random.Range(min, max + 1);
+
+                while (_pickedCard == player.PickedCard)
+                    _pickedCard = Random.Range(min, max + 1);
+            }
         }
 
         public void SetupPebblesInHand()
         {
-            foreach (var spriteRenderer in _pebbleInHand)
-            {
+            foreach (var spriteRenderer in _pebbleInHand) 
                 spriteRenderer.enabled = false;
-            }
 
-            for (int i = 0; i < PebblesHidden; i++)
-            {
+            for (var i = 0; i < PebblesPicked; i++) 
                 _pebbleInHand[i].enabled = true;
-            }
         }
 
         public IEnumerator ShowFist()
         {
+            Waiting = true;
             yield return new WaitForSeconds(Random.Range(3, 8));
             FindObjectOfType<AnimatorScheduler>().ShowEnemyFist();
+            Waiting = false;
+        }
+        
+        public IEnumerator PickCard()
+        {
+            var seconds = Random.Range(3, 5);
+            Debug.Log("seconds = " + seconds);
+            yield return new WaitForSeconds(seconds);
+            PickCard(false);
+            GameManager.Instance.MarkEnemyCard(_pickedCard);
+            Debug.Log(_pickedCard + "_pickedCard");
         }
     }
 }

@@ -4,16 +4,21 @@ using UnityEngine;
 namespace Gameplay
 {
     public class Card : MonoBehaviour
-    {        
+    {
+        public int Value => _value;
+        
         [SerializeField] private int _value;
         [SerializeField] private SpriteRenderer _greenCover;
+        [SerializeField] private SpriteRenderer _redCover;
+        [SerializeField] private SpriteRenderer _greyCover;
         [SerializeField] private Vector3 _targetPosition;
         [SerializeField] private bool _isRight;
-        
+
         private Vector3 _startPos;
         private Camera _camera;
         private bool _drag;
         private float _minY;
+
 
         private void Awake() => _camera = Camera.main;
 
@@ -30,7 +35,7 @@ namespace Gameplay
             _drag = false;
             if (transform.position.y - _minY < 0.001f)
             {
-                GameManager.Instance.PickedCard(_value);
+                PlayerHolder.Instance.PickedCard = _value;
                 GameManager.Instance.ShowHands();
             }
             else
@@ -61,6 +66,35 @@ namespace Gameplay
 
                 _greenCover.color = new Color(_greenCover.color.r, _greenCover.color.g, _greenCover.color.b, percentage);
             }
+        }
+
+        public void MarkRed()
+        {
+            Debug.Log("mark card");
+            _redCover.color = new Color(_redCover.color.r, _redCover.color.g, _redCover.color.b, 0.6f);
+        }
+
+        public void Disable()
+        {
+            _greyCover.color = new Color(_greyCover.color.r, _greyCover.color.g, _greyCover.color.b, 0.6f);
+            GetComponent<Collider>().enabled = false;
+        }
+
+        public void Enable()
+        {
+            _greyCover.color = new Color(_greyCover.color.r, _greyCover.color.g, _greyCover.color.b, 0);
+            GetComponent<Collider>().enabled = true;
+        }
+
+        public void ResetColor()
+        {
+            var color = _redCover.color;
+            color = new Color(color.r, color.g, color.b, 0);
+            _redCover.color = color;
+            
+            var color1 = _greenCover.color;
+            color1 = new Color(color1.r, color1.g, color1.b, 0);
+            _greenCover.color = color1;
         }
     }
 }

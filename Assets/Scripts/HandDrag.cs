@@ -38,5 +38,10 @@ namespace Gameplay
                 transform.position = new Vector3(transform.position.x, clamp, transform.position.z);
             }
         }
+
+        public void DisableAnimator()
+        {
+            GetComponent<Animator>().enabled = false;
+        }
     }
 }
