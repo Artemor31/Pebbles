@@ -52,8 +52,10 @@ namespace Gameplay
 
                 _pickedCard = Random.Range(min, max + 1);
 
-                while (_pickedCard == player.PickedCard)
-                    _pickedCard = Random.Range(min, max + 1);
+                if (_pickedCard == player.PickedCard)
+                {
+                    _pickedCard = _pickedCard == 6 ? _pickedCard - 1 : _pebblesPicked + 1;
+                }
             }
         }
 
