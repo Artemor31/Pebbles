@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 59555966715730502}
   - component: {fileID: 4422505280063769483}
   - component: {fileID: 2127626077270061929}
-  - component: {fileID: 1395218046755980285}
+  - component: {fileID: 6407302545478754246}
   m_Layer: 0
   m_Name: card-pattern (1)
   m_TagString: Untagged
@@ -123,7 +123,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.64, y: 5.68, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &1395218046755980285
+--- !u!95 &6407302545478754246
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0

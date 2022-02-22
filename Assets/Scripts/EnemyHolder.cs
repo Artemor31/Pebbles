@@ -29,7 +29,7 @@ namespace Gameplay
             _pebblesPicked = Random.Range(0, max);
         }
 
-        public void PickCard(bool firstTurn)
+        public void ChooseCard(bool firstTurn)
         {
             var player = PlayerHolder.Instance;
             
@@ -76,12 +76,15 @@ namespace Gameplay
             Waiting = false;
         }
         
-        public IEnumerator PickCard()
+        public IEnumerator PickCard(bool show)
         {
             var seconds = Random.Range(3, 5);
             yield return new WaitForSeconds(seconds);
-            PickCard(false);
+            ChooseCard(false);
             GameManager.Instance.MarkEnemyCard(_pickedCard);
+            StartCoroutine(GameManager.Instance.WaitForCardsEnable());
+            if (show)
+                GameManager.Instance.ShowHands();
         }
     }
 }

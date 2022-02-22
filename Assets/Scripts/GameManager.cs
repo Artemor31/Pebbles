@@ -10,6 +10,7 @@ namespace Gameplay
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
+        public bool PlayerTurn => _playerTurn;
         
         [SerializeField] private AnimatorScheduler _scheduler;
         [SerializeField] private HandHolder _handHolder;
@@ -23,14 +24,22 @@ namespace Gameplay
         {
             Instance = FindObjectOfType<GameManager>();
             
-          //  if (Random.Range(0, 2) == 0) 
+            if (Random.Range(0, 2) == 0) 
                 _playerTurn = false;
             
+            StartGameplay();
+        }
+
+        private void StartGameplay()
+        {
+            
+            _playerTurn = !_playerTurn;
+
             _scheduler.StartChain();
             StartPebbleChooseState();
         }
 
-        public void StartPebbleChooseState()
+        private void StartPebbleChooseState()
         {
             _scheduler.StartChain();
             EnemyStartPebblesRoutine();
@@ -52,6 +61,7 @@ namespace Gameplay
                 StopCoroutine(_waitForFist);
                 FindObjectOfType<AnimatorScheduler>().ShowEnemyFist();
             }
+            
             // Show normal cards and hide pick pebbles UI.
             ResetCards();
             _scheduler.HideChain();
@@ -66,17 +76,19 @@ namespace Gameplay
 
         private void CardsTurnActivity()
         {
-            if (_playerTurn)
-            {
-                foreach (var card in _cards)
-                    card.Enable();
-            }
-            else
-            {
-                foreach (var card in _cards)
-                    card.Disable();
-                StartCoroutine(EnemyHolder.Instance.PickCard());
-            }
+            foreach (var card in _cards)
+                card.Disable(true);
+
+            StartCoroutine(_playerTurn 
+                           ? WaitForCardsEnable() 
+                           : EnemyHolder.Instance.PickCard(false));
+        }
+
+        public IEnumerator WaitForCardsEnable()
+        {
+            yield return new WaitForSeconds(2);
+            foreach (var card in _cards)
+                card.Enable();
         }
 
         private void ResetCards()
@@ -98,18 +110,44 @@ namespace Gameplay
         private void CountPebbles()
         {
             var totalPebbles = PlayerHolder.Instance.PebblesPicked + EnemyHolder.Instance.PebblesPicked;
-            
+            Card card = null;
             foreach (var first in _cards.Select(_ => _cards.First(c => c.Value == totalPebbles)))
             {
-                var animator = first.GetComponent<Animator>();
-                animator.enabled = true;
-                animator.Play(first.Value.ToString());
+                card = first;
+                PopCard(card, 1);
+                break;
             }
+
+            StartCoroutine(RestartGame(card));
+        }
+        
+        private IEnumerator RestartGame(Card popup)
+        {
+            yield return new WaitForSeconds(2);
+            PopCard(popup, -1);
+            yield return new WaitForSeconds(4);
+            _scheduler.HideCards();
+            var findObjectsOfType = FindObjectsOfType<Pebble>();
+            StartGameplay();
+        }
+        
+        private void PopCard(Card card, int speed)
+        {
+            var animator = card.GetComponent<Animator>();
+            animator.enabled = true;
+            animator.SetFloat("speed", speed);
+            animator.Play(card.Value.ToString());
+        }
+
+
+        public void DisableCardsWithoutColorize()
+        {
+            foreach (var card in _cards) card.Disable(false);
         }
 
         public void MarkEnemyCard(int value)
         {
-            ResetCards();
+            //ResetCards();
             var card = _cards.First(c => c.Value == value);
             card.MarkRed();
         }

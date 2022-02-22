@@ -33,6 +33,14 @@ namespace Gameplay
             _cards.Play("start");
         }
 
+        public void HideCards()
+        {
+            _cards.enabled = true;
+            _cards.Play("end");
+            _playerHand.Play("hide");
+            _enemyHand.Play("hide");
+        }
+        
         public void ShowPlayerFist()
         {
             _playerHand.Play("show");

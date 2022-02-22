@@ -19,7 +19,6 @@ namespace Gameplay
         private bool _drag;
         private float _minY;
 
-
         private void Awake() => _camera = Camera.main;
 
         public void StartDrag()
@@ -35,8 +34,19 @@ namespace Gameplay
             _drag = false;
             if (transform.position.y - _minY < 0.001f)
             {
-                PlayerHolder.Instance.PickedCard = _value;
-                GameManager.Instance.ShowHands();
+                if (GameManager.Instance.PlayerTurn == false)
+                {
+                    PlayerHolder.Instance.PickedCard = _value;
+                    GameManager.Instance.ShowHands();
+                }
+                else
+                {
+                    PlayerHolder.Instance.PickedCard = _value;
+                    GameManager.Instance.DisableCardsWithoutColorize();
+                    StartCoroutine(EnemyHolder.Instance.PickCard(true));
+                }
+                transform.position = _startPos;
+                transform.localScale /= 1.3f;
             }
             else
             {
@@ -70,13 +80,13 @@ namespace Gameplay
 
         public void MarkRed()
         {
-            Debug.Log("mark card");
             _redCover.color = new Color(_redCover.color.r, _redCover.color.g, _redCover.color.b, 0.6f);
         }
 
-        public void Disable()
+        public void Disable(bool colorize)
         {
-            _greyCover.color = new Color(_greyCover.color.r, _greyCover.color.g, _greyCover.color.b, 0.6f);
+            if (colorize)
+                _greyCover.color = new Color(_greyCover.color.r, _greyCover.color.g, _greyCover.color.b, 0.6f);
             GetComponent<Collider>().enabled = false;
         }
 
