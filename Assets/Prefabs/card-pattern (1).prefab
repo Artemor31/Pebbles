@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: 0
+  _cover: {fileID: 59555968544971420}
   _greenCover: {fileID: 7637145630799259857}
   _redCover: {fileID: 4099566638408702601}
-  _greyCover: {fileID: 2361686057116974916}
   _targetPosition: {x: 0, y: 0, z: 0}
   _isRight: 0
 --- !u!65 &2127626077270061929

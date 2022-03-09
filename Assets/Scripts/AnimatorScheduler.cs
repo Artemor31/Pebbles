@@ -1,31 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class AnimatorScheduler : MonoBehaviour
     {
-        [SerializeField] private Animator _pebbles;
-        [SerializeField] private Animator _handIcon;
-        [SerializeField] private Animator _backPanel;
         [SerializeField] private Animator _cards;
         [SerializeField] private Animator _playerHand;
         [SerializeField] private Animator _enemyHand;
-
-        public void StartChain()
-        {
-            _handIcon.enabled = true;
-            _backPanel.Play("start");
-        }
-
-        public void HideChain()
-        {
-            _handIcon.enabled = true;
-            _pebbles.Play("hide");
-            _backPanel.Play("hide");
-            _handIcon.Play("hide");
-        }
+        [SerializeField] private Animator _pebblesCards;
 
         public void ShowCards()
         {
@@ -55,6 +38,25 @@ namespace Gameplay
         {
             _enemyHand.Play("showHand");
             _playerHand.Play("showHand");
+        }
+
+        public void HidePebbleCards()
+        {
+            _pebblesCards.enabled = true;
+            _pebblesCards.Play("hide");
+        }
+
+        public void ShowPebbleCards()
+        {
+            _pebblesCards.enabled = true;
+            _pebblesCards.Play("start");
+            DisableAnimator(_pebblesCards);
+        }
+
+        private IEnumerator DisableAnimator(Animator animator)
+        {
+            yield return new WaitForSeconds(3);
+            animator.enabled = false;
         }
     }
 }

@@ -3,14 +3,12 @@ using UnityEngine;
 
 namespace Gameplay
 {
-    public class Card : MonoBehaviour
+    public class PebbleCard : MonoBehaviour
     {
         public int Value => _value;
-        
+
         [SerializeField] private int _value;
-        [SerializeField] private SpriteRenderer _cover;
         [SerializeField] private SpriteRenderer _greenCover;
-        [SerializeField] private SpriteRenderer _redCover;
         [SerializeField] private Vector3 _targetPosition;
         [SerializeField] private bool _isRight;
 
@@ -34,7 +32,7 @@ namespace Gameplay
             _drag = false;
             if (transform.position.y - _minY < 0.001f)
             {
-                PlayerHolder.Instance.PickValue(_value);
+                FindObjectOfType<GameplayWrapper>().PlayerPickedPebbles(_value);
                 transform.position = _startPos;
                 transform.localScale /= 1.3f;
             }
@@ -68,42 +66,24 @@ namespace Gameplay
             }
         }
 
-        public Card SetRed()
+        public void SetToAnimate()
         {
-            _redCover.color = new Color(_redCover.color.r, _redCover.color.g, _redCover.color.b, 0.6f);
-            return this;
+            ResetColor();
+            GetComponent<Collider>().enabled = false;
+            GetComponentInParent<Animator>().enabled = true;
         }
 
-        public Card SetClear()
-        {            
-            var color = _redCover.color;
-            color = new Color(color.r, color.g, color.b, 0);
-            _redCover.color = color;
-            
+        public void SetToPick()
+        {
+            GetComponent<Collider>().enabled = true;
+            GetComponentInParent<Animator>().enabled = false;
+        }
+
+        private void ResetColor()
+        {
             var color1 = _greenCover.color;
             color1 = new Color(color1.r, color1.g, color1.b, 0);
             _greenCover.color = color1;
-            
-            SetOpacity(false);
-            return this;
-        }
-
-        public Card SetOpacity(bool on)
-        {
-            _cover.color = new Color(1, 1, 1, on ? 0.5f : 1);
-            return this;
-        } 
-        
-        public Card SetClickable(bool on)
-        {
-            GetComponent<Collider>().enabled = on;
-            return this;
-        }
-
-        public Card SetAnimator(bool on)
-        {
-            GetComponent<Animator>().enabled = on;
-            return this;
         }
     }
 }
