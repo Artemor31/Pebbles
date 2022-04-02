@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Gameplay
+namespace AnimationSchemas
 {
-    public class AnimatorDisable : MonoBehaviour
+    public class CardsAnimator : MonoBehaviour
     {
-        public void Disable()
+        public void DisableAnimator()
         {
             GetComponent<Animator>().enabled = false;
         }

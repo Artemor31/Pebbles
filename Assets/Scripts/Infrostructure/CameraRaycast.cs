@@ -1,18 +1,14 @@
-﻿using UnityEngine;
+﻿using Cards;
+using UnityEngine;
 
-namespace Gameplay
+namespace Infrostructure
 {
     public class CameraRaycast : MonoBehaviour
     {
         private Camera _camera;
-        private Pebble _pebble;
-        private Card _card;
-        private PebbleCard _pebbleCard;
+        private ICard _card;
 
-        private void Awake()
-        {
-            _camera = GetComponent<Camera>();
-        }
+        private void Awake() => _camera = GetComponent<Camera>();
 
         private void Update()
         {
@@ -24,25 +20,21 @@ namespace Gameplay
                 CheckPebbleCardClick(hits, length);
             }
 
+            CheckCardsClick();
+        }
+
+        private void CheckCardsClick()
+        {
             if (Input.GetMouseButtonUp(0))
             {
-                if (_card != null)
-                {
-                    _card.EndDrag();
-                    _card = null;
-                }
-                
-                if (_pebbleCard != null)
-                {
-                    _pebbleCard.EndDrag();
-                    _pebbleCard = null;
-                }
-                
-                var hits = CastRay(out var length);
-                for (var i = 0; i < length; i++)
-                {
-                    CheckPebbleUp(hits, i);
-                }
+                CheckCard(_card);
+            }
+
+            void CheckCard(ICard card)
+            {
+                if (card == null) return;
+                card.EndDrag();
+                card = null;
             }
         }
 
@@ -90,27 +82,9 @@ namespace Gameplay
 
             if (topCard != null)
             {
-                _pebbleCard = topCard;
-                _pebbleCard.StartDrag();
+                _card = topCard;
+                _card.StartDrag();
             }
-        }
-
-        private void CheckPebbleUp(RaycastHit[] hits, int i)
-        {
-            if (_pebble != null && hits[i].transform.TryGetComponent(out HandHolder handHolder))
-            {
-                handHolder.PlacePebble(_pebble);
-                _pebble = null;
-            }
-        }
-
-        private void CheckPebbleClick(RaycastHit hit)
-        {
-            if (hit.transform.TryGetComponent(out Pebble pebble) == false) return;
-            if (pebble.enabled == false) return;
-            
-            pebble.StartDrag();
-            _pebble = pebble;
         }
 
         private RaycastHit[] CastRay(out int length)

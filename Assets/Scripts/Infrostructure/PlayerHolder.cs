@@ -1,13 +1,13 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections.Generic;
+using AnimationSchemas;
+using UnityEngine;
 using Zenject;
 
-namespace Gameplay
+namespace Infrostructure
 {
     public class PlayerHolder : MonoBehaviour
     {
-        public static PlayerHolder Instance;
         public Action<int> PickedValue;
 
         public int PebblesLeft { get; private set; }
@@ -30,7 +30,6 @@ namespace Gameplay
         private void Start()
         {
             PebblesLeft = 3;
-            Instance = FindObjectOfType<PlayerHolder>();
         }
 
         public void ShowFist()

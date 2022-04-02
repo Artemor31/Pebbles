@@ -41,30 +41,24 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\PebbleCard.cs" />
-     <Compile Include="Assets\Scripts\GameTimer.cs" />
-     <Compile Include="Assets\Scripts\CardsAnimator.cs" />
-     <Compile Include="Assets\Scripts\CameraRaycast.cs" />
-     <Compile Include="Assets\Scripts\PebblesPositions.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\GameplaySate.cs" />
-     <Compile Include="Assets\Scripts\EnemyHolder.cs" />
-     <Compile Include="Assets\Scripts\GameplayUI.cs" />
-     <Compile Include="Assets\Scripts\GameplayWrapper.cs" />
-     <Compile Include="Assets\Scripts\Pebble.cs" />
-     <Compile Include="Assets\Scripts\BootLoader.cs" />
-     <Compile Include="Assets\Scripts\PlayerHolder.cs" />
-     <Compile Include="Assets\Scripts\ValueCardsHolder.cs" />
-     <Compile Include="Assets\Scripts\GameplayStateManager.cs" />
-     <Compile Include="Assets\Scripts\AnimatorDisable.cs" />
-     <Compile Include="Assets\Scripts\HandHolder.cs" />
-     <Compile Include="Assets\Scripts\AnimatorScheduler.cs" />
-     <Compile Include="Assets\Scripts\AnimationChain.cs" />
-     <Compile Include="Assets\Scripts\Pointer.cs" />
-     <Compile Include="Assets\Scripts\Result.cs" />
-     <Compile Include="Assets\Scripts\PebbleCardsHolder.cs" />
-     <Compile Include="Assets\Scripts\Card.cs" />
+     <Compile Include="Assets\Scripts\Cards\PebbleCard.cs" />
+     <Compile Include="Assets\Scripts\Utils\GameTimer.cs" />
+     <Compile Include="Assets\Scripts\AnimationSchemas\CardsAnimator.cs" />
+     <Compile Include="Assets\Scripts\Infrostructure\CameraRaycast.cs" />
+     <Compile Include="Assets\Scripts\Infrostructure\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Infrostructure\EnemyHolder.cs" />
+     <Compile Include="Assets\Scripts\ViewLogic\GameplayUI.cs" />
+     <Compile Include="Assets\Scripts\Infrostructure\GameplayWrapper.cs" />
+     <Compile Include="Assets\Scripts\Infrostructure\BootLoader.cs" />
+     <Compile Include="Assets\Scripts\Infrostructure\PlayerHolder.cs" />
+     <Compile Include="Assets\Scripts\Cards\ValueCardsHolder.cs" />
+     <Compile Include="Assets\Scripts\AnimationSchemas\AnimatorDisable.cs" />
+     <Compile Include="Assets\Scripts\AnimationSchemas\AnimatorScheduler.cs" />
+     <Compile Include="Assets\Scripts\Infrostructure\Result.cs" />
+     <Compile Include="Assets\Scripts\Cards\PebbleCardsHolder.cs" />
+     <Compile Include="Assets\Scripts\Cards\Card.cs" />
      <Compile Include="Assets\Scripts\Bootstrappers\SceneBootstrapper.cs" />
+     <Compile Include="Assets\Scripts\Cards\ICard.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Gameplay
+namespace Cards
 {
     public class ValueCardsHolder : MonoBehaviour
     {

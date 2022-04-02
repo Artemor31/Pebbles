@@ -1,8 +1,11 @@
 ﻿using System.Collections;
+using AnimationSchemas;
+using Cards;
 using UnityEngine;
+using Utils;
 using Zenject;
 
-namespace Gameplay
+namespace Infrostructure
 {
     public class GameplayWrapper : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace Gameplay
+﻿namespace Infrostructure
 {
     public enum Result
     {

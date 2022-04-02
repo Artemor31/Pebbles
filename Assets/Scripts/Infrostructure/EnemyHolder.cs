@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using AnimationSchemas;
 using UnityEngine;
+using Utils;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace Gameplay
+namespace Infrostructure
 {
     public class EnemyHolder : MonoBehaviour
     {
-        public static EnemyHolder Instance;
-        
         public Action<int> ValuePicked;
         public int PebblesPicked => _pebblesPicked;
         public int PickedCard => _pickedCard;
@@ -22,17 +22,18 @@ namespace Gameplay
         private int _pickedCard;
         private int _pebblesPicked;       
         private GameManager _gameManager;
-
+        private PlayerHolder _playerHolder;
+        
         [Inject]
-        public void Constructor(GameManager gameManager)
+        public void Constructor(GameManager gameManager, PlayerHolder playerHolder)
         {
             _gameManager = gameManager;
+            _playerHolder = playerHolder;
         }
 
         private void Awake()
         {
             _pebblesLeft = 3;
-            Instance = FindObjectOfType<EnemyHolder>();
         }
         
         private void HidePebbles()
@@ -43,28 +44,26 @@ namespace Gameplay
 
         private void ChooseCard(bool firstTurn)
         {
-            var player = PlayerHolder.Instance;
-            
             if (firstTurn)
             {
-                var maxInclusive = _pebblesPicked + player.PebblesLeft + 1;
+                var maxInclusive = _pebblesPicked + _playerHolder.PebblesLeft + 1;
                 _pickedCard = Random.Range(_pebblesPicked, maxInclusive);
             }
             else
             {
-                var stMax = player.PebblesLeft;
+                var stMax = _playerHolder.PebblesLeft;
 
-                var min = player.CardValue <= stMax
+                var min = _playerHolder.CardValue <= stMax
                            ? _pebblesPicked
-                           : _pebblesPicked + (player.CardValue - stMax);
+                           : _pebblesPicked + (_playerHolder.CardValue - stMax);
 
-                var max = player.CardValue > 0
-                           ? player.PebblesLeft + _pebblesPicked
-                           : player.CardValue + _pebblesPicked;
+                var max = _playerHolder.CardValue > 0
+                           ? _playerHolder.PebblesLeft + _pebblesPicked
+                           : _playerHolder.CardValue + _pebblesPicked;
 
                 _pickedCard = Random.Range(min, max + 1);
 
-                if (_pickedCard == player.CardValue)
+                if (_pickedCard == _playerHolder.CardValue)
                 {
                     _pickedCard = _pickedCard == 6 
                                 ? _pickedCard - 1 

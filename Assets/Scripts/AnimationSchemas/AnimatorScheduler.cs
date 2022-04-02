@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Gameplay
+namespace AnimationSchemas
 {
     public class AnimatorScheduler : MonoBehaviour
     {
