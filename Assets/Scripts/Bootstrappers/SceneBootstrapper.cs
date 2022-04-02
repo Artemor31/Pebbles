@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Gameplay.Bootstrappers
 {
-    public class SceneBootstrap : MonoInstaller
+    public class SceneBootstrapper : MonoInstaller
     {
         [SerializeField] private GameManager _gameManager;
             

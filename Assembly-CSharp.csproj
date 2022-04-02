@@ -64,7 +64,7 @@
      <Compile Include="Assets\Scripts\Result.cs" />
      <Compile Include="Assets\Scripts\PebbleCardsHolder.cs" />
      <Compile Include="Assets\Scripts\Card.cs" />
-     <Compile Include="Assets\Scripts\Bootstrappers\SceneBootstrap.cs" />
+     <Compile Include="Assets\Scripts\Bootstrappers\SceneBootstrapper.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
