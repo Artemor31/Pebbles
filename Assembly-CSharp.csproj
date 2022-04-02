@@ -59,6 +59,9 @@
      <Compile Include="Assets\Scripts\Cards\Card.cs" />
      <Compile Include="Assets\Scripts\Bootstrappers\SceneBootstrapper.cs" />
      <Compile Include="Assets\Scripts\Cards\ICard.cs" />
+     <Compile Include="Assets\Scripts\StateMachine\GameStateMachine.cs" />
+     <Compile Include="Assets\Scripts\StateMachine\IState.cs" />
+     <Compile Include="Assets\Scripts\StateMachine\SetupState.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
