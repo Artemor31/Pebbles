@@ -1,4 +1,5 @@
-﻿using Infrostructure;
+﻿using System;
+using Infrostructure;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,8 @@ namespace Bootstrappers
         {
             Container.Bind<GameManager>().FromInstance(_gameManager).AsSingle();
             Container.Bind<PlayerHolder>().FromInstance(_playerHolder).AsSingle();
+            
+            
         }
     }
 }

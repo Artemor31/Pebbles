@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\StateMachine\GameStateMachine.cs" />
      <Compile Include="Assets\Scripts\StateMachine\IState.cs" />
      <Compile Include="Assets\Scripts\StateMachine\SetupState.cs" />
+     <Compile Include="Assets\Scripts\Bootstrappers\GameStarter.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
