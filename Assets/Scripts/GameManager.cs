@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,8 +6,6 @@ namespace Gameplay
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager Instance;
-        
         public bool PlayerTurn { get; set; }
         public bool PlayerReady;
         public bool AiReady;
@@ -18,7 +13,6 @@ namespace Gameplay
 
         private void Start()
         {
-            Instance = FindObjectOfType<GameManager>();
             if (Random.Range(0, 2) == 0) 
                 PlayerTurn = false;
             StartGameplay();

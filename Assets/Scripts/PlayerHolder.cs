@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Zenject;
 
 namespace Gameplay
 {
@@ -18,6 +19,14 @@ namespace Gameplay
         [SerializeField] private SpriteRenderer _noPebbleSign;
         [SerializeField] private AnimatorScheduler _animator;
 
+        private GameManager _gameManager;
+
+        [Inject]
+        public void Constructor(GameManager gameManager)
+        {
+            _gameManager = gameManager;
+        }
+        
         private void Start()
         {
             PebblesLeft = 3;
@@ -28,7 +37,7 @@ namespace Gameplay
         {
             SetupFist();
             _animator.ShowPlayerFist();
-            GameManager.Instance.PlayerReady = true;
+            _gameManager.PlayerReady = true;
         }
 
         private void SetupFist()

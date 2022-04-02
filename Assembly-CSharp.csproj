@@ -50,20 +50,21 @@
      <Compile Include="Assets\Scripts\GameplaySate.cs" />
      <Compile Include="Assets\Scripts\EnemyHolder.cs" />
      <Compile Include="Assets\Scripts\GameplayUI.cs" />
+     <Compile Include="Assets\Scripts\GameplayWrapper.cs" />
      <Compile Include="Assets\Scripts\Pebble.cs" />
      <Compile Include="Assets\Scripts\BootLoader.cs" />
      <Compile Include="Assets\Scripts\PlayerHolder.cs" />
+     <Compile Include="Assets\Scripts\ValueCardsHolder.cs" />
      <Compile Include="Assets\Scripts\GameplayStateManager.cs" />
      <Compile Include="Assets\Scripts\AnimatorDisable.cs" />
      <Compile Include="Assets\Scripts\HandHolder.cs" />
      <Compile Include="Assets\Scripts\AnimatorScheduler.cs" />
      <Compile Include="Assets\Scripts\AnimationChain.cs" />
      <Compile Include="Assets\Scripts\Pointer.cs" />
+     <Compile Include="Assets\Scripts\Result.cs" />
      <Compile Include="Assets\Scripts\PebbleCardsHolder.cs" />
      <Compile Include="Assets\Scripts\Card.cs" />
-     <Compile Include="Assets\Scripts\GameplayWrapper.cs" />
-     <Compile Include="Assets\Scripts\ValueCardsHolder.cs" />
-     <Compile Include="Assets\Scripts\Result.cs" />
+     <Compile Include="Assets\Scripts\Bootstrappers\SceneBootstrap.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -334,6 +335,21 @@
      </Reference>
      <Reference Include="Newtonsoft.Json">
      <HintPath>C:/Unity/Games/Pebbles/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll</HintPath>
+     </Reference>
+     <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Rocks">
+     <HintPath>C:/Unity/Games/Pebbles/Assets/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.Rocks.dll</HintPath>
+     </Reference>
+     <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Pdb">
+     <HintPath>C:/Unity/Games/Pebbles/Assets/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.Pdb.dll</HintPath>
+     </Reference>
+     <Reference Include="Zenject-usage">
+     <HintPath>C:/Unity/Games/Pebbles/Assets/Plugins/Zenject/Source/Usage/Zenject-usage.dll</HintPath>
+     </Reference>
+     <Reference Include="Zenject.ReflectionBaking.Mono.Cecil">
+     <HintPath>C:/Unity/Games/Pebbles/Assets/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.dll</HintPath>
+     </Reference>
+     <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Mdb">
+     <HintPath>C:/Unity/Games/Pebbles/Assets/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.Mdb.dll</HintPath>
      </Reference>
      <Reference Include="netstandard">
      <HintPath>C:/Unity/Engine/2021.2.0f1/Editor/Data/NetStandard/ref/2.1.0/netstandard.dll</HintPath>
@@ -757,6 +773,22 @@
      </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Zenject-Editor.csproj">
+      <Project>{4166c1a8-13bc-2694-8aea-6945dace3592}</Project>
+      <Name>Zenject-Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Zenject-PoolMonitor-Editor.csproj">
+      <Project>{e3e67145-e79e-7f0b-ec36-d7e86b116b50}</Project>
+      <Name>Zenject-PoolMonitor-Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Zenject-ReflectionBaking-Editor.csproj">
+      <Project>{34832bc9-d66d-0933-ad8e-df648ae4dea7}</Project>
+      <Name>Zenject-ReflectionBaking-Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Zenject.csproj">
+      <Project>{6c50c91f-2b62-7bc2-6e61-a2cfe44f20ae}</Project>
+      <Name>Zenject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

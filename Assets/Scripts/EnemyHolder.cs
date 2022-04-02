@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Gameplay
@@ -19,7 +20,14 @@ namespace Gameplay
         [SerializeField] private GameTimer _timer;
         private int _pebblesLeft;
         private int _pickedCard;
-        private int _pebblesPicked;
+        private int _pebblesPicked;       
+        private GameManager _gameManager;
+
+        [Inject]
+        public void Constructor(GameManager gameManager)
+        {
+            _gameManager = gameManager;
+        }
 
         private void Awake()
         {
@@ -80,17 +88,15 @@ namespace Gameplay
             SetupPebblesInHand();
             yield return new WaitForSeconds(Random.Range(3, 8));
             _animator.ShowEnemyFist();
-            GameManager.Instance.AiReady = true;
+            _gameManager.AiReady = true;
             _timer.StopAI();
         }
         
         public IEnumerator PickingCard()   
         {
-            var gameManager = GameManager.Instance;
-            
             var seconds = Random.Range(3, 5);
             yield return new WaitForSeconds(seconds);
-            ChooseCard(!gameManager.PlayerTurn);
+            ChooseCard(!_gameManager.PlayerTurn);
             ValuePicked?.Invoke(_pickedCard);
         }
     }

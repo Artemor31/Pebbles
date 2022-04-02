@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace Gameplay
 {
@@ -12,8 +13,15 @@ namespace Gameplay
         [SerializeField] private GameTimer _timer;
         [SerializeField] private EnemyHolder _enemy;
         [SerializeField] private PlayerHolder _player;
+        
+        private GameManager _gameManager;
 
-
+        [Inject]
+        public void Constructor(GameManager gameManager)
+        {
+            _gameManager = gameManager;
+        }
+        
         private void OnEnable()
         {
             _enemy.ValuePicked += AiPickedValue;
@@ -40,8 +48,8 @@ namespace Gameplay
 
         public void StartCardsStage()
         {
-            GameManager.Instance.AiReady = false;
-            GameManager.Instance.PlayerReady = false;
+            _gameManager.AiReady = false;
+            _gameManager.PlayerReady = false;
             
             _valueCards.PreAnimate();
             _animator.ShowCards();
@@ -50,7 +58,7 @@ namespace Gameplay
 
         private void SetupField()
         {
-            if (GameManager.Instance.PlayerTurn)
+            if (_gameManager.PlayerTurn)
             {
                 _valueCards.PrePlayerPick();
                 _timer.StartPlayer();
@@ -65,7 +73,7 @@ namespace Gameplay
 
         private void AiPickedValue(int value)
         {
-            GameManager.Instance.AiReady = true;
+            _gameManager.AiReady = true;
             _valueCards.MarkAiCard(_enemy.PickedCard);
             _valueCards.PrePlayerPick();
             _timer.StopAI();
