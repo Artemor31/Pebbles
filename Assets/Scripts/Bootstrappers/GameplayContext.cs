@@ -1,13 +1,12 @@
 ﻿using StateMachine;
-using UnityEngine;
 
 namespace Bootstrappers
 {
-    public class GameStarter : MonoBehaviour
+    public class GameplayContext
     {
-        private GameStateMachine _stateMachine;
+        private readonly GameStateMachine _stateMachine;
 
-        private void Awake()
+        public GameplayContext()
         {
             _stateMachine = new GameStateMachine();
             _stateMachine.Enter<SetupState>();

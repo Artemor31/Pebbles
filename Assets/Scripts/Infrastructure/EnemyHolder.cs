@@ -7,7 +7,7 @@ using Utils;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace Infrostructure
+namespace Infrastructure
 {
     public class EnemyHolder : MonoBehaviour
     {

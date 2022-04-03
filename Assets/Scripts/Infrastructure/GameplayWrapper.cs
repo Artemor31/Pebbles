@@ -5,14 +5,12 @@ using UnityEngine;
 using Utils;
 using Zenject;
 
-namespace Infrostructure
+namespace Infrastructure
 {
     public class GameplayWrapper : MonoBehaviour
     {
         [SerializeField] private GameManager _manager;
         [SerializeField] private AnimatorScheduler _animator;
-        [SerializeField] private PebbleCardsHolder _pebbleCards;
-        [SerializeField] private ValueCardsHolder _valueCards;
         [SerializeField] private GameTimer _timer;
         [SerializeField] private EnemyHolder _enemy;
         [SerializeField] private PlayerHolder _player;
@@ -33,7 +31,7 @@ namespace Infrostructure
 
         public void StartPebblePickStage()
         {
-            _pebbleCards.PrePick();
+           // _pebbleCards.PrePick();
             _animator.ShowPebbleCards();
             _timer.StartPlayer();
             _timer.StartAI();
@@ -46,7 +44,7 @@ namespace Infrostructure
             _timer.StopPlayer();
             _animator.HidePebbleCards();
             _player.ShowFist();
-            _pebbleCards.PreAnimate();
+           // _pebbleCards.PreAnimate();
         }
 
         public void StartCardsStage()
@@ -54,7 +52,7 @@ namespace Infrostructure
             _gameManager.AiReady = false;
             _gameManager.PlayerReady = false;
             
-            _valueCards.PreAnimate();
+           // _valueCards.PreAnimate();
             _animator.ShowCards();
             SetupField();
         }
@@ -63,12 +61,12 @@ namespace Infrostructure
         {
             if (_gameManager.PlayerTurn)
             {
-                _valueCards.PrePlayerPick();
+              //  _valueCards.PrePlayerPick();
                 _timer.StartPlayer();
             }
             else
             {
-                _valueCards.PreAiPick();
+               // _valueCards.PreAiPick();
                 _timer.StartAI();
                 StartCoroutine(_enemy.PickingCard());
             }
@@ -77,8 +75,8 @@ namespace Infrostructure
         private void AiPickedValue(int value)
         {
             _gameManager.AiReady = true;
-            _valueCards.MarkAiCard(_enemy.PickedCard);
-            _valueCards.PrePlayerPick();
+           // _valueCards.MarkAiCard(_enemy.PickedCard);
+           // _valueCards.PrePlayerPick();
             _timer.StopAI();
             
             if (_manager.PlayerReady == false)
@@ -92,8 +90,8 @@ namespace Infrostructure
         {
             _manager.PlayerReady = true;
             _player.CardValue = value;
-            _valueCards.PrePlayerPick();
-            _valueCards.Clickable(false);
+          //  _valueCards.PrePlayerPick();
+          //  _valueCards.Clickable(false);
             _timer.StopPlayer();
             
             if (_manager.AiReady == false)
@@ -108,9 +106,9 @@ namespace Infrostructure
             _animator.ShowHands();
             yield return new WaitForSeconds(1);
             var sum = _player.PebblesPicked + _enemy.PebblesPicked;
-            _valueCards.PopCard(sum, true);
+          //  _valueCards.PopCard(sum, true);
             yield return new WaitForSeconds(2);
-            _valueCards.PopCard(sum, false);
+          //  _valueCards.PopCard(sum, false);
             yield return new WaitForSeconds(2);
             _animator.HideCards();
         }

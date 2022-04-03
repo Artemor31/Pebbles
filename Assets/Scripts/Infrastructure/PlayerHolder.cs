@@ -4,7 +4,7 @@ using AnimationSchemas;
 using UnityEngine;
 using Zenject;
 
-namespace Infrostructure
+namespace Infrastructure
 {
     public class PlayerHolder : MonoBehaviour
     {

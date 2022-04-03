@@ -1,4 +1,4 @@
-﻿namespace Infrostructure
+﻿namespace Infrastructure
 {
     public enum Result
     {

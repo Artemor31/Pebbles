@@ -1,20 +1,19 @@
 ﻿using System;
-using Infrostructure;
+using Infrastructure;
 using UnityEngine;
 using Zenject;
 
 namespace Cards
 {
-    public class Card : MonoBehaviour, ICard
+    public class ValueCard : MonoBehaviour, ICard
     {
         public int Value => _value;
-        
+        public CardDecorator Decorator => _decorator;
+
         [SerializeField] private int _value;
-        [SerializeField] private SpriteRenderer _cover;
-        [SerializeField] private SpriteRenderer _greenCover;
-        [SerializeField] private SpriteRenderer _redCover;
         [SerializeField] private Vector3 _targetPosition;
         [SerializeField] private bool _isRight;
+        [SerializeField] private CardDecorator _decorator;
 
         private Vector3 _startPos;
         private Camera _camera;
@@ -49,11 +48,12 @@ namespace Cards
             }
             else
             {
-                _greenCover.color = new Color(_greenCover.color.r, _greenCover.color.g, _greenCover.color.b, 0);
+                _decorator.SetGreen(0);
                 transform.position = _startPos;
                 transform.localScale /= 1.3f;
             }
         }
+
 
         private void Update()
         {
@@ -73,46 +73,8 @@ namespace Cards
 
                 transform.position = new Vector3(x, y, transform.position.z);
 
-                _greenCover.color = new Color(_greenCover.color.r, _greenCover.color.g, _greenCover.color.b, percentage);
+                _decorator.SetGreen(percentage);
             }
-        }
-
-        public Card SetRed()
-        {
-            _redCover.color = new Color(_redCover.color.r, _redCover.color.g, _redCover.color.b, 0.6f);
-            return this;
-        }
-
-        public Card SetClear()
-        {            
-            var color = _redCover.color;
-            color = new Color(color.r, color.g, color.b, 0);
-            _redCover.color = color;
-            
-            var color1 = _greenCover.color;
-            color1 = new Color(color1.r, color1.g, color1.b, 0);
-            _greenCover.color = color1;
-            
-            SetOpacity(false);
-            return this;
-        }
-
-        public Card SetOpacity(bool on)
-        {
-            _cover.color = new Color(1, 1, 1, on ? 0.5f : 1);
-            return this;
-        } 
-        
-        public Card SetClickable(bool on)
-        {
-            GetComponent<Collider>().enabled = on;
-            return this;
-        }
-
-        public Card SetAnimator(bool on)
-        {
-            GetComponent<Animator>().enabled = on;
-            return this;
         }
     }
 }

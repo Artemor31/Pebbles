@@ -1150,6 +1150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 452320640}
   _playerHolder: {fileID: 241515223}
+  _gameplayWrapper: {fileID: 1237888462}
 --- !u!114 &328713862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3461,8 +3462,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 452320640}
   _animator: {fileID: 956772335}
-  _pebbleCards: {fileID: 232844228}
-  _valueCards: {fileID: 992334119}
   _timer: {fileID: 815083303}
   _enemy: {fileID: 1491836299}
   _player: {fileID: 241515223}

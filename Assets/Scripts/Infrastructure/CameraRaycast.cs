@@ -1,7 +1,7 @@
 ﻿using Cards;
 using UnityEngine;
 
-namespace Infrostructure
+namespace Infrastructure
 {
     public class CameraRaycast : MonoBehaviour
     {
@@ -40,25 +40,25 @@ namespace Infrostructure
 
         private void CheckCardClick(RaycastHit[] hits, int length)
         {
-            Card topCard = null;
+            ValueCard topValueCard = null;
             var z = float.MaxValue;
             for (var i = length - 1; i >= 0; i--)
             {
-                if (hits[i].transform.TryGetComponent(out Card card))
+                if (hits[i].transform.TryGetComponent(out ValueCard card))
                 {
                     var positionZ = card.transform.position.z;
                     
                     if (positionZ < z)
                     {
                         z = positionZ;
-                        topCard = card;
+                        topValueCard = card;
                     }
                 }
             }
 
-            if (topCard != null)
+            if (topValueCard != null)
             {
-                _card = topCard;
+                _card = topValueCard;
                 _card.StartDrag();
             }
         }
