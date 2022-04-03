@@ -1,4 +1,5 @@
 ﻿using StateMachine;
+using UnityEditor.SearchService;
 
 namespace Bootstrappers
 {
@@ -6,9 +7,9 @@ namespace Bootstrappers
     {
         private readonly GameStateMachine _stateMachine;
 
-        public GameplayContext()
+        public GameplayContext(ICoroutineRunner coroutineRunner)
         {
-            _stateMachine = new GameStateMachine();
+            _stateMachine = new GameStateMachine(this, coroutineRunner);
             _stateMachine.Enter<SetupState>();
         }
     }

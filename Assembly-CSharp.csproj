@@ -42,12 +42,12 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Bootstrappers\ICoroutineRunner.cs" />
     <Compile Include="Assets\Scripts\StateMachine\IState.cs" />
     <Compile Include="Assets\Scripts\Cards\PebbleCard.cs" />
     <Compile Include="Assets\Scripts\StateMachine\PebbleState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\SetupValueCardsState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\ValueCardsState.cs" />
-    <Compile Include="Assets\Scripts\Utils\CoroutineRunner.cs" />
     <Compile Include="Assets\Scripts\Utils\GameTimer.cs" />
     <Compile Include="Assets\Scripts\AnimationSchemas\CardsAnimator.cs" />
     <Compile Include="Assets\Scripts\Cards\ICard.cs" />

@@ -1,10 +1,11 @@
-﻿using Infrastructure;
+﻿using System.Collections;
+using Infrastructure;
 using UnityEngine;
 using Zenject;
 
 namespace Bootstrappers
 {
-    public class SceneBootstrapper : MonoInstaller
+    public class SceneBootstrapper : MonoInstaller, ICoroutineRunner
     {
         [SerializeField] private GameManager _gameManager;
         [SerializeField] private PlayerHolder _playerHolder;
@@ -18,7 +19,12 @@ namespace Bootstrappers
             Container.Bind<PlayerHolder>().FromInstance(_playerHolder).AsSingle();
             Container.Bind<GameplayWrapper>().FromInstance(_gameplayWrapper).AsSingle();
 
-            _gameplayContext = new GameplayContext();
+            _gameplayContext = new GameplayContext(this);
+        }
+
+        public void RunCoroutine(IEnumerator coroutine)
+        {
+            StartCoroutine(coroutine);
         }
     }
 }
