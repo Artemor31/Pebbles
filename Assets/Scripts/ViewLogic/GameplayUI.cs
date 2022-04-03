@@ -13,7 +13,7 @@ namespace ViewLogic
             Time.timeScale = 0;
         }
 
-        public void Restart()
+        public void RestartGame()
         {
             SceneManager.LoadScene(0);
         }
