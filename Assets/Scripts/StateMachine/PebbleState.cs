@@ -25,14 +25,32 @@ namespace StateMachine
         {
             ShowCards();
             StartTimers();
-            _player.Picked += () => _playerReady = true;
-            _enemy.Picked += () => _enemyPicked = true;
+            _player.Picked += PlayerValuePicked;
+            _enemy.Picked += EnemyValuePicked;
         }
 
         public void Exit()
         {
             ResetTimers();
             HideCards();
+        }
+
+        private void CheckNewStateEntry()
+        {
+            if (_playerReady && _enemyPicked)
+                _stateMachine.Enter<SetupValueCardsState>();
+        }
+
+        private void PlayerValuePicked()
+        {
+            _playerReady = true;
+            CheckNewStateEntry();
+        }
+
+        private void EnemyValuePicked()
+        {
+            _enemyPicked = true;
+            CheckNewStateEntry();
         }
 
         private void StartTimers()
@@ -47,12 +65,12 @@ namespace StateMachine
 
         private void ShowCards()
         {
-            _cards.Show();
+            _cards.ShowPebbles();
         }
 
         private void HideCards()
         {
-            _cards.Hide();
+            _cards.HidePebbles();
         }
     }
 }

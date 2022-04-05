@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using AnimationSchemas;
-using Zenject;
 
 namespace Cards
 {
@@ -22,19 +21,30 @@ namespace Cards
         {
             foreach (var decorator in _decorators)
             {
-                decorator.SetOpacity(0)
+                decorator.SetOpacity(1)
                          .SetGreen(0)
                          .SetRed(0);
             }
         }
 
-        public void Show()
+        public void ShowPebbles()
+        {
+            ResetView();
+            _animatorScheduler.ShowPebbleCards();
+        }
+
+        public void HidePebbles()
+        {
+            _animatorScheduler.HidePebbleCards();
+        }
+
+        public void ShowValue()
         {
             ResetView();
             _animatorScheduler.ShowCards();
         }
 
-        public void Hide()
+        public void HideValue()
         {
             _animatorScheduler.HideCards();
         }

@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 7350543494697309434}
   - component: {fileID: 8887622065326095829}
   - component: {fileID: 8871266685324241499}
+  - component: {fileID: 9122437276721208247}
   m_Layer: 0
   m_Name: PebbleCard
   m_TagString: Untagged
@@ -284,12 +285,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598d5e60f0594630a710f98ccdfe79f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: 0
-  _greenCover: {fileID: 1093639101385680493}
-  _redCover: {fileID: 6788441587010622517}
-  _greyCover: {fileID: 5050665485160837624}
+  _decorator: {fileID: 9122437276721208247}
   _targetPosition: {x: 0, y: 0, z: 0}
   _isRight: 0
+  _value: 0
+--- !u!114 &9122437276721208247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7350543494697309433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e10915332f46a3899e0b1d1eeec852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cover: {fileID: 7350543496488801312}
+  _greenCover: {fileID: 1093639101385680493}
+  _redCover: {fileID: 6788441587010622517}
 --- !u!1 &7350543494893115550
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4422505280063769483}
   - component: {fileID: 2127626077270061929}
   - component: {fileID: 6407302545478754246}
+  - component: {fileID: 6556789041684367452}
   m_Layer: 0
   m_Name: card-pattern (1)
   m_TagString: Untagged
@@ -105,11 +106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: 0
-  _cover: {fileID: 59555968544971420}
-  _greenCover: {fileID: 7637145630799259857}
-  _redCover: {fileID: 4099566638408702601}
   _targetPosition: {x: 0, y: 0, z: 0}
   _isRight: 0
+  _decorator: {fileID: 6556789041684367452}
 --- !u!65 &2127626077270061929
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -143,6 +142,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6556789041684367452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59555966715730501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e10915332f46a3899e0b1d1eeec852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cover: {fileID: 59555968544971420}
+  _greenCover: {fileID: 7637145630799259857}
+  _redCover: {fileID: 4099566638408702601}
 --- !u!1 &59555966912091682
 GameObject:
   m_ObjectHideFlags: 0
