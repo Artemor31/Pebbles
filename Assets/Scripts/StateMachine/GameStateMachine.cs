@@ -12,6 +12,7 @@ namespace StateMachine
         private readonly Dictionary<Type,IState> _states;
         private IState _activeState;
 
+        
         public GameStateMachine(GameplayContext context, ICoroutineRunner coroutineRunner)
         {
             _coroutineRunner = coroutineRunner;
