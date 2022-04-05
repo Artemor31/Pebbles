@@ -12,6 +12,8 @@ namespace Infrastructure
     public class EnemyHolder : MonoBehaviour
     {
         public Action<int> ValuePicked;
+        public Action Picked;
+        
         public int PebblesPicked => _pebblesPicked;
         public int PickedCard => _pickedCard;
 
@@ -97,6 +99,7 @@ namespace Infrastructure
             yield return new WaitForSeconds(seconds);
             ChooseCard(!_gameManager.PlayerTurn);
             ValuePicked?.Invoke(_pickedCard);
+            Picked?.Invoke();
         }
     }
 }

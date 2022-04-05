@@ -16,10 +16,12 @@ namespace StateMachine
         public GameStateMachine(GameplayContext context, ICoroutineRunner coroutineRunner)
         {
             _coroutineRunner = coroutineRunner;
-            
             _states = new Dictionary<Type, IState>
             {
                 [typeof(SetupState)] = new SetupState(this),
+                [typeof(PebbleState)] = new PebbleState(this, context.Player, context.Enemy, context.CardsHolder),
+                [typeof(SetupValueCardsState)] = new SetupValueCardsState(this),
+                [typeof(ValueCardsState)] = new ValueCardsState(),
             };
         }
         

@@ -9,6 +9,7 @@ namespace Infrastructure
     public class PlayerHolder : MonoBehaviour
     {
         public Action<int> PickedValue;
+        public Action Picked;
 
         public int PebblesLeft { get; private set; }
         public int PebblesPicked { get; set; }
@@ -65,6 +66,7 @@ namespace Infrastructure
         {
             CardValue = value;
             PickedValue?.Invoke(value);
+            Picked?.Invoke();
         }
     }
 }
