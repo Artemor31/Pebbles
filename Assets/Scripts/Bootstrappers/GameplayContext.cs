@@ -1,4 +1,5 @@
-﻿using Cards;
+﻿using AnimationSchemas;
+using Cards;
 using Infrastructure;
 using StateMachine;
 
@@ -10,15 +11,23 @@ namespace Bootstrappers
 
         public PlayerHolder Player { get; }
         public EnemyHolder Enemy { get; }
-        public CardsHolder CardsHolder { get; }
+        public PebbleCardsParent PebbleCardsParent { get; }
+        public ValueCardsParent ValueCardsParent { get; }
 
-        public GameplayContext(ICoroutineRunner coroutineRunner, PlayerHolder player, EnemyHolder enemyEnemy, CardsHolder cardsHolder)
+        public GameplayContext(ICoroutineRunner coroutineRunner, 
+                               PlayerHolder player, 
+                               EnemyHolder enemy, 
+                               PebbleCardsParent pebbleCardsParent, 
+                               ValueCardsParent valueCardsParent,
+                               AnimatorScheduler animatorScheduler)
         {
             Player = player;
-            Enemy = enemyEnemy;
-            CardsHolder = cardsHolder;
-            _stateMachine = new GameStateMachine(this, coroutineRunner);
+            Enemy = enemy;
+            PebbleCardsParent = pebbleCardsParent;
+            ValueCardsParent = valueCardsParent;
+            _stateMachine = new GameStateMachine(this, coroutineRunner, animatorScheduler);
             _stateMachine.Enter<SetupState>();
         }
+
     }
 }

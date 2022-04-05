@@ -1,8 +1,9 @@
 ﻿using System.Collections;
-using Cards;
+using AnimationSchemas;
 using Infrastructure;
 using UnityEngine;
 using Zenject;
+using Cards;
 
 namespace Bootstrappers
 {
@@ -12,7 +13,9 @@ namespace Bootstrappers
         [SerializeField] private PlayerHolder _playerHolder;
         [SerializeField] private EnemyHolder _enemyHolder;
         [SerializeField] private GameplayWrapper _gameplayWrapper;
-        [SerializeField] private CardsHolder _cardsHolder;
+        [SerializeField] private PebbleCardsParent _pebbleCardsParent;
+        [SerializeField] private ValueCardsParent _valueCardsParent;
+        [SerializeField] private AnimatorScheduler _animatorScheduler;
         
         private GameplayContext _gameplayContext;
 
@@ -22,7 +25,7 @@ namespace Bootstrappers
             Container.Bind<PlayerHolder>().FromInstance(_playerHolder).AsSingle();
             Container.Bind<GameplayWrapper>().FromInstance(_gameplayWrapper).AsSingle();
 
-            _gameplayContext = new GameplayContext(this, _playerHolder, _enemyHolder, _cardsHolder);
+            _gameplayContext = new GameplayContext(this, _playerHolder, _enemyHolder, _pebbleCardsParent, _valueCardsParent, _animatorScheduler);
         }
 
         public void RunCoroutine(IEnumerator coroutine) => 

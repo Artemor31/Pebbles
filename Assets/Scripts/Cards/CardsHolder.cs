@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using AnimationSchemas;
+using Zenject;
 
 namespace Cards
 {
     public class CardsHolder
     {
-        private readonly List<ICard> _cards;
-        private readonly List<CardDecorator> _decorators;
+        private readonly ICard[] _cards;
+        private readonly CardDecorator[] _decorators;
 
-        public CardsHolder(List<ICard> cards)
+        public CardsHolder(ICard[] cards, AnimatorScheduler animatorScheduler)
         {
             _cards = cards;
-            _decorators = _cards.Select(c => c.Decorator)
-                                .ToList();
+            _decorators = _cards.Select(c => c.Decorator).ToArray();
         }
 
         public void ResetView()

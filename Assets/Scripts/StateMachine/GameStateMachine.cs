@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using AnimationSchemas;
 using Bootstrappers;
+using Cards;
 using UnityEngine;
 
 namespace StateMachine
@@ -13,13 +15,13 @@ namespace StateMachine
         private IState _activeState;
 
         
-        public GameStateMachine(GameplayContext context, ICoroutineRunner coroutineRunner)
+        public GameStateMachine(GameplayContext context, ICoroutineRunner coroutineRunner, AnimatorScheduler animatorScheduler)
         {
             _coroutineRunner = coroutineRunner;
             _states = new Dictionary<Type, IState>
             {
                 [typeof(SetupState)] = new SetupState(this),
-                [typeof(PebbleState)] = new PebbleState(this, context.Player, context.Enemy, context.CardsHolder),
+                [typeof(PebbleState)] = new PebbleState(this, context.Player, context.Enemy, new CardsHolder(context.PebbleCardsParent.Cards, animatorScheduler)),
                 [typeof(SetupValueCardsState)] = new SetupValueCardsState(this),
                 [typeof(ValueCardsState)] = new ValueCardsState(),
             };
