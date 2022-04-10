@@ -1,33 +1,16 @@
-﻿using AnimationSchemas;
-using Cards;
-using Infrastructure;
-using StateMachine;
+﻿using StateMachine;
 
 namespace Bootstrappers
 {
-    public class GameplayContext
+    public class GameplayContext 
     {
         private readonly GameStateMachine _stateMachine;
-
-        public PlayerHolder Player { get; }
-        public EnemyHolder Enemy { get; }
-        public PebbleCardsParent PebbleCardsParent { get; }
-        public ValueCardsParent ValueCardsParent { get; }
-
-        public GameplayContext(ICoroutineRunner coroutineRunner, 
-                               PlayerHolder player, 
-                               EnemyHolder enemy, 
-                               PebbleCardsParent pebbleCardsParent, 
-                               ValueCardsParent valueCardsParent,
-                               AnimatorScheduler animatorScheduler)
+        
+        public GameplayContext(GameStateMachine stateMachine)
         {
-            Player = player;
-            Enemy = enemy;
-            PebbleCardsParent = pebbleCardsParent;
-            ValueCardsParent = valueCardsParent;
-            _stateMachine = new GameStateMachine(this, coroutineRunner, animatorScheduler);
+            _stateMachine = stateMachine;
+            _stateMachine.Init();
             _stateMachine.Enter<SetupState>();
         }
-
     }
 }

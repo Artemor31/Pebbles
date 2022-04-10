@@ -1,5 +1,6 @@
-﻿using Cards;
+﻿using AnimationSchemas;
 using Infrastructure;
+using Cards;
 
 namespace StateMachine
 {
@@ -8,17 +9,22 @@ namespace StateMachine
         private readonly GameStateMachine _stateMachine;
         private readonly PlayerHolder _player;
         private readonly EnemyHolder _enemy;
-        private readonly CardsHolder _cards;
+        private readonly PebbleCardsParent _cardsParent;
+        private readonly PebblesCardHolder _cards;
 
         private bool _playerReady;
         private bool _enemyPicked;
 
-        public PebbleState(GameStateMachine stateMachine, PlayerHolder player, EnemyHolder enemy, CardsHolder cards)
+        public PebbleState(GameStateMachine stateMachine, 
+                           PlayerHolder player,
+                           EnemyHolder enemy,
+                           PebbleCardsParent cardsParent, 
+                           AnimatorScheduler animator)
         {
             _stateMachine = stateMachine;
             _player = player;
             _enemy = enemy;
-            _cards = cards;
+            _cards = new PebblesCardHolder(cardsParent.Cards, animator);
         }
 
         public void Enter()

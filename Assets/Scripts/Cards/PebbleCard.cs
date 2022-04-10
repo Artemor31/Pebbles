@@ -23,10 +23,8 @@ namespace Cards
         private GameplayWrapper _gameplayWrapper;
 
         [Inject]
-        public void Constructor(GameplayWrapper gameplayWrapper)
-        {
+        public void Constructor(GameplayWrapper gameplayWrapper) => 
             _gameplayWrapper = gameplayWrapper;
-        }
 
         private void Awake() => _camera = Camera.main;
 

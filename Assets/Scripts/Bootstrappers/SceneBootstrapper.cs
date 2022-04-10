@@ -4,10 +4,12 @@ using Infrastructure;
 using UnityEngine;
 using Zenject;
 using Cards;
+using Factory;
+using StateMachine;
 
 namespace Bootstrappers
 {
-    public class SceneBootstrapper : MonoInstaller, ICoroutineRunner
+    public class SceneBootstrapper : MonoInstaller, ICoroutineRunner, IInitializable
     {
         [SerializeField] private GameManager _gameManager;
         [SerializeField] private PlayerHolder _playerHolder;
@@ -23,10 +25,26 @@ namespace Bootstrappers
         {
             Container.Bind<GameManager>().FromInstance(_gameManager).AsSingle();
             Container.Bind<PlayerHolder>().FromInstance(_playerHolder).AsSingle();
+            Container.Bind<EnemyHolder>().FromInstance(_enemyHolder).AsSingle();
+            Container.Bind<PebbleCardsParent>().FromInstance(_pebbleCardsParent).AsSingle();
+            Container.Bind<ValueCardsParent>().FromInstance(_valueCardsParent).AsSingle();
+            Container.Bind<AnimatorScheduler>().FromInstance(_animatorScheduler).AsSingle();
             Container.Bind<GameplayWrapper>().FromInstance(_gameplayWrapper).AsSingle();
 
-            _gameplayContext = new GameplayContext(this, _playerHolder, _enemyHolder, _pebbleCardsParent, _valueCardsParent, _animatorScheduler);
+
+            Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle();
+            Container.Bind<GameStateMachine>().AsSingle().NonLazy();
+            
+            
+            Container.Bind<IStateFactory>().To<StateFactory>().AsSingle();
+            Container.Bind<SetupState>().AsSingle().NonLazy();
+            Container.Bind<PebbleState>().AsSingle().NonLazy();
+            Container.Bind<SetupValueCardsState>().AsSingle().NonLazy();
+            Container.Bind<ValueCardsState>().AsSingle().NonLazy();
         }
+
+        public void Initialize() => 
+            _gameplayContext = new GameplayContext(Container.Resolve<GameStateMachine>());
 
         public void RunCoroutine(IEnumerator coroutine) => 
             StartCoroutine(coroutine);

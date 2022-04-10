@@ -10,3 +10,9 @@ Packages/
 UserSettings/
 
 Temp/
+
+ProjectSettings/
+
+*.csproj
+
+obj/

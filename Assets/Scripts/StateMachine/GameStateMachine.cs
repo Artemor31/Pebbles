@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using AnimationSchemas;
 using Bootstrappers;
-using Cards;
+using Factory;
 using UnityEngine;
 
 namespace StateMachine
@@ -11,22 +10,28 @@ namespace StateMachine
     public class GameStateMachine
     {
         private readonly ICoroutineRunner _coroutineRunner;
-        private readonly Dictionary<Type,IState> _states;
+        private readonly IStateFactory _factory;
+        
+        private Dictionary<Type,IState> _states;
         private IState _activeState;
 
-        
-        public GameStateMachine(GameplayContext context, ICoroutineRunner coroutineRunner, AnimatorScheduler animatorScheduler)
+        public GameStateMachine(ICoroutineRunner coroutineRunner, IStateFactory factory)
         {
             _coroutineRunner = coroutineRunner;
+            _factory = factory;
+        }
+
+        public void Init()
+        {
             _states = new Dictionary<Type, IState>
             {
-                [typeof(SetupState)] = new SetupState(this),
-                [typeof(PebbleState)] = new PebbleState(this, context.Player, context.Enemy, new CardsHolder(context.PebbleCardsParent.Cards, animatorScheduler)),
-                [typeof(SetupValueCardsState)] = new SetupValueCardsState(this),
-                [typeof(ValueCardsState)] = new ValueCardsState(),
+                [typeof(SetupState)] = _factory.Get<SetupState>(),
+                [typeof(PebbleState)] = _factory.Get<PebbleState>(),
+                [typeof(SetupValueCardsState)] = _factory.Get<SetupValueCardsState>(),
+                [typeof(ValueCardsState)] = _factory.Get<ValueCardsState>(),
             };
         }
-        
+
         public void Enter<TState>() where TState : class, IState
         {
             _activeState?.Exit();

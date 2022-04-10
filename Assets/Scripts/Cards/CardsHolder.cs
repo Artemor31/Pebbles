@@ -3,18 +3,18 @@ using AnimationSchemas;
 
 namespace Cards
 {
-    public class CardsHolder
+    public abstract class CardsHolder
     {
-        private readonly ICard[] _cards;
-        private readonly CardDecorator[] _decorators;
-        private readonly AnimatorScheduler _animatorScheduler;
+        protected readonly ICard[] _cards;
+        protected readonly CardDecorator[] _decorators;
+        protected readonly AnimatorScheduler _animatorScheduler;
         
-
         public CardsHolder(ICard[] cards, AnimatorScheduler animatorScheduler)
         {
             _cards = cards;
-            _decorators = _cards.Select(c => c.Decorator).ToArray();
             _animatorScheduler = animatorScheduler;
+            _decorators = _cards.Select(c => c.Decorator)
+                                .ToArray();
         }
 
         public void ResetView()
@@ -27,17 +27,6 @@ namespace Cards
             }
         }
 
-        public void ShowPebbles()
-        {
-            ResetView();
-            _animatorScheduler.ShowPebbleCards();
-        }
-
-        public void HidePebbles()
-        {
-            _animatorScheduler.HidePebbleCards();
-        }
-
         public void ShowValue()
         {
             ResetView();
@@ -48,17 +37,7 @@ namespace Cards
         {
             _animatorScheduler.HideCards();
         }
-
-        public void PopOut(int value)
-        {
-            AnimatePop(value, true);
-        }
-
-        public void PopIn(int value)
-        {
-            AnimatePop(value, false);
-        }
-
+        
         public void SetInactive()
         {
             foreach (var decorator in _decorators)
@@ -82,11 +61,6 @@ namespace Cards
         {
             _decorators[value].SetRed(0.6f);
         }
-        
 
-        private void AnimatePop(int value, bool up)
-        {
-            _decorators[value].Pop(value, up);
-        }
     }
 }
