@@ -32,10 +32,10 @@ namespace Infrastructure
         public void StartPebblePickStage()
         {
            // _pebbleCards.PrePick();
-            _animator.ShowPebbleCards();
-            _timer.StartPlayer();
-            _timer.StartAI();
-            StartCoroutine(_enemy.ChoosingPebbles());
+            //_animator.ShowPebbleCards();
+            //_timer.StartPlayer();
+            //_timer.StartAI();
+          //  StartCoroutine(_enemy.ChoosingPebbles());
         }
 
         public void PlayerPickedPebbles(int value)

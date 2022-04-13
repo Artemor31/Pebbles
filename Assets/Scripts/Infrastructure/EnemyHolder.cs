@@ -83,7 +83,12 @@ namespace Infrastructure
                 _pebbleInHand[i].enabled = true;
         }
 
-        public IEnumerator ChoosingPebbles()
+        public void StartChoosePebbles()
+        {
+            StartCoroutine(ChoosingPebbles());
+        }
+
+        private IEnumerator ChoosingPebbles()
         {
             HidePebbles();
             SetupPebblesInHand();

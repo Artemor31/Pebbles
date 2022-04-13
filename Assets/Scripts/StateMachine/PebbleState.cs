@@ -33,6 +33,7 @@ namespace StateMachine
             StartTimers();
             _player.Picked += PlayerValuePicked;
             _enemy.Picked += EnemyValuePicked;
+            _enemy.StartChoosePebbles();
         }
 
         public void Exit()

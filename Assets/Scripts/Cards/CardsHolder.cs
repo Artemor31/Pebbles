@@ -8,8 +8,8 @@ namespace Cards
         protected readonly ICard[] _cards;
         protected readonly CardDecorator[] _decorators;
         protected readonly AnimatorScheduler _animatorScheduler;
-        
-        public CardsHolder(ICard[] cards, AnimatorScheduler animatorScheduler)
+
+        protected CardsHolder(ICard[] cards, AnimatorScheduler animatorScheduler)
         {
             _cards = cards;
             _animatorScheduler = animatorScheduler;
