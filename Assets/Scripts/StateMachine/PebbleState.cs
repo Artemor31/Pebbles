@@ -1,6 +1,8 @@
 ﻿using AnimationSchemas;
 using Infrastructure;
 using Cards;
+using Unity.VisualScripting;
+using Utils;
 
 namespace StateMachine
 {
@@ -12,6 +14,7 @@ namespace StateMachine
         private readonly AnimatorScheduler _animator;
         private readonly PebbleCardsParent _cardsParent;
         private readonly PebblesCardHolder _cards;
+        private readonly GameTimer _timer;
 
         private bool _playerReady;
         private bool _enemyPicked;
@@ -20,12 +23,13 @@ namespace StateMachine
                            PlayerHolder player,
                            EnemyHolder enemy,
                            PebbleCardsParent cardsParent, 
-                           AnimatorScheduler animator)
+                           AnimatorScheduler animator,GameTimer timer)
         {
             _stateMachine = stateMachine;
             _player = player;
             _enemy = enemy;
             _animator = animator;
+            _timer = timer;
             _cards = new PebblesCardHolder(cardsParent.Cards, animator);
         }
 
@@ -64,12 +68,14 @@ namespace StateMachine
 
         private void StartTimers()
         {
-            
+            _timer.StartAI();
+            _timer.StartPlayer();
         }
 
         private void ResetTimers()
         {
-            
+            _timer.StopAI();
+            _timer.StopPlayer();
         }
 
         private void ShowCards()

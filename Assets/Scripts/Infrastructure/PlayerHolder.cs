@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AnimationSchemas;
 using UnityEngine;
+using Utils;
 using Zenject;
 
 namespace Infrastructure
@@ -19,6 +20,7 @@ namespace Infrastructure
         [SerializeField] private List<SpriteRenderer> _handPebbles;
         [SerializeField] private SpriteRenderer _noPebbleSign;
         [SerializeField] private AnimatorScheduler _animator;
+
         
         private void Start()
         {

@@ -6,6 +6,7 @@ using Zenject;
 using Cards;
 using Factory;
 using StateMachine;
+using Utils;
 
 namespace Bootstrappers
 {
@@ -17,6 +18,7 @@ namespace Bootstrappers
         [SerializeField] private PebbleCardsParent _pebbleCardsParent;
         [SerializeField] private ValueCardsParent _valueCardsParent;
         [SerializeField] private AnimatorScheduler _animatorScheduler;
+        [SerializeField] private GameTimer _gameTimer;
         
         private GameplayContext _gameplayContext;
         
@@ -43,6 +45,7 @@ namespace Bootstrappers
             Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle();
             Container.Bind<GameStateMachine>().AsSingle().NonLazy();
             Container.Bind<IStateFactory>().To<StateFactory>().AsSingle();
+            Container.Bind<GameTimer>().FromInstance(_gameTimer).AsSingle();
         }
 
         private void BindSingletons()

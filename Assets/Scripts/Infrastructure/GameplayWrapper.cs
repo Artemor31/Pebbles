@@ -20,6 +20,7 @@ namespace Infrastructure
             _player.PickedValue += PlayerPickedValue;
         }
 
+
         private void AiPickedValue(int value)
         {
             _timer.StopAI();
