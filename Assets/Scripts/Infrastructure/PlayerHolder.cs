@@ -19,14 +19,6 @@ namespace Infrastructure
         [SerializeField] private List<SpriteRenderer> _handPebbles;
         [SerializeField] private SpriteRenderer _noPebbleSign;
         [SerializeField] private AnimatorScheduler _animator;
-
-        private GameManager _gameManager;
-
-        [Inject]
-        public void Constructor(GameManager gameManager)
-        {
-            _gameManager = gameManager;
-        }
         
         private void Start()
         {
@@ -37,7 +29,7 @@ namespace Infrastructure
         {
             SetupFist();
             _animator.ShowPlayerFist();
-            _gameManager.PlayerReady = true;
+        //    _gameManager.PlayerReady = true;
         }
 
         private void SetupFist()

@@ -23,13 +23,11 @@ namespace Infrastructure
         private int _pebblesLeft;
         private int _pickedCard;
         private int _pebblesPicked;       
-        private GameManager _gameManager;
         private PlayerHolder _playerHolder;
         
         [Inject]
-        public void Constructor(GameManager gameManager, PlayerHolder playerHolder)
+        public void Constructor(PlayerHolder playerHolder)
         {
-            _gameManager = gameManager;
             _playerHolder = playerHolder;
         }
 
@@ -94,7 +92,7 @@ namespace Infrastructure
             SetupPebblesInHand();
             yield return new WaitForSeconds(Random.Range(3, 8));
             _animator.ShowEnemyFist();
-            _gameManager.AiReady = true;
+           // _gameManager.AiReady = true;
             _timer.StopAI();
         }
         
@@ -102,7 +100,7 @@ namespace Infrastructure
         {
             var seconds = Random.Range(3, 5);
             yield return new WaitForSeconds(seconds);
-            ChooseCard(!_gameManager.PlayerTurn);
+          //  ChooseCard(!_gameManager.PlayerTurn);
             ValuePicked?.Invoke(_pickedCard);
             Picked?.Invoke();
         }

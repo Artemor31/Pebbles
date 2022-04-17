@@ -25,10 +25,10 @@ namespace StateMachine
         {
             _states = new Dictionary<Type, IState>
             {
-                [typeof(SetupState)] = _factory.Get<SetupState>(),
-                [typeof(PebbleState)] = _factory.Get<PebbleState>(),
-                [typeof(SetupValueCardsState)] = _factory.Get<SetupValueCardsState>(),
-                [typeof(ValueCardsState)] = _factory.Get<ValueCardsState>(),
+                [typeof(SetupState)] = _factory.Create<SetupState>(),
+                [typeof(PebbleState)] = _factory.Create<PebbleState>(),
+                [typeof(SetupValueCardsState)] = _factory.Create<SetupValueCardsState>(),
+                [typeof(ValueCardsState)] = _factory.Create<ValueCardsState>(),
             };
         }
 

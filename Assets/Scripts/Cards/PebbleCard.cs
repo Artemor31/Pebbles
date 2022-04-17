@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection.Emit;
 using Infrastructure;
+using StateMachine;
 using UnityEngine;
 using Zenject;
 
@@ -20,11 +21,11 @@ namespace Cards
         private Camera _camera;
         private float _minY;
         private bool _drag;
-        private GameplayWrapper _gameplayWrapper;
+        private PebbleState _pebbleState;
 
         [Inject]
-        public void Constructor(GameplayWrapper gameplayWrapper) => 
-            _gameplayWrapper = gameplayWrapper;
+        public void Constructor(PebbleState pebbleState) => 
+            _pebbleState = pebbleState;
 
         private void Awake() => _camera = Camera.main;
 
@@ -41,7 +42,7 @@ namespace Cards
             _drag = false;
             if (transform.position.y - _minY < 0.001f)
             {
-                _gameplayWrapper.PlayerPickedPebbles(_value);
+                _pebbleState.PlayerPickedPebbles(_value);
                 transform.position = _startPos;
                 transform.localScale /= 1.3f;
             }

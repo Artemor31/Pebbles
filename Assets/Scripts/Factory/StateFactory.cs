@@ -10,7 +10,7 @@ namespace Factory
         public StateFactory(DiContainer container) => 
             _container = container;
 
-        public IState Get<TState>() where TState : IState => 
+        public IState Create<TState>() where TState : IState => 
             _container.Resolve<TState>();
     }
 }

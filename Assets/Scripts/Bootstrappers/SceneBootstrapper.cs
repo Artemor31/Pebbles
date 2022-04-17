@@ -11,7 +11,6 @@ namespace Bootstrappers
 {
     public class SceneBootstrapper : MonoInstaller, ICoroutineRunner, IInitializable
     {
-        [SerializeField] private GameManager _gameManager;
         [SerializeField] private PlayerHolder _playerHolder;
         [SerializeField] private EnemyHolder _enemyHolder;
         [SerializeField] private GameplayWrapper _gameplayWrapper;
@@ -23,7 +22,6 @@ namespace Bootstrappers
         
         public override void InstallBindings()
         {
-            BindGameManager();
             BindPlayers();
             BindSingletons();
             BindGameInfrastructure();
@@ -60,12 +58,7 @@ namespace Bootstrappers
             Container.Bind<PlayerHolder>().FromInstance(_playerHolder).AsSingle();
             Container.Bind<EnemyHolder>().FromInstance(_enemyHolder).AsSingle();
         }
-
-        private void BindGameManager()
-        {
-            Container.Bind<GameManager>().FromInstance(_gameManager).AsSingle();
-        }
-
+        
         public void Initialize() {} 
 
         public void RunCoroutine(IEnumerator coroutine) => 

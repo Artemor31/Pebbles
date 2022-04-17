@@ -9,6 +9,7 @@ namespace StateMachine
         private readonly GameStateMachine _stateMachine;
         private readonly PlayerHolder _player;
         private readonly EnemyHolder _enemy;
+        private readonly AnimatorScheduler _animator;
         private readonly PebbleCardsParent _cardsParent;
         private readonly PebblesCardHolder _cards;
 
@@ -24,6 +25,7 @@ namespace StateMachine
             _stateMachine = stateMachine;
             _player = player;
             _enemy = enemy;
+            _animator = animator;
             _cards = new PebblesCardHolder(cardsParent.Cards, animator);
         }
 
@@ -78,6 +80,13 @@ namespace StateMachine
         private void HideCards()
         {
             _cards.HidePebbles();
+        }
+        
+        public void PlayerPickedPebbles(int value)
+        {
+            _player.PebblesPicked = value;
+            _animator.HidePebbleCards();
+            _player.ShowFist();
         }
     }
 }
