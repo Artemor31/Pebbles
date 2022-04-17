@@ -30,7 +30,7 @@ namespace Cards
         public void ShowValue()
         {
             ResetView();
-            _animatorScheduler.ShowCards();
+            _animatorScheduler.ShowPebbleCards();
         }
 
         public void HideValue()
@@ -60,6 +60,14 @@ namespace Cards
         public void SetRed(int value)
         {
             _decorators[value].SetRed(0.6f);
+        }
+
+        public void DisableCollider()
+        {
+            foreach (var decorator in _decorators)
+            {
+                decorator.EnableCollider(false);
+            }
         }
 
     }
