@@ -29,7 +29,6 @@ namespace Infrastructure
         {
             SetupFist();
             _animator.ShowPlayerFist();
-        //    _gameManager.PlayerReady = true;
         }
 
         private void SetupFist()

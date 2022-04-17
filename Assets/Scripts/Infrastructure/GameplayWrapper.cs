@@ -19,24 +19,16 @@ namespace Infrastructure
             _enemy.ValuePicked += AiPickedValue;
             _player.PickedValue += PlayerPickedValue;
         }
-        
-        private void SetupField()
-        {
-            _timer.StartAI();
-            StartCoroutine(_enemy.PickingCard());
-        }
 
         private void AiPickedValue(int value)
         {
             _timer.StopAI();
-            SetupField();
         }
 
         private void PlayerPickedValue(int value)
         {
             _player.CardValue = value;
             _timer.StopPlayer();
-            SetupField();
         }
 
         public IEnumerator ShowOff()

@@ -20,7 +20,7 @@ namespace Infrastructure
         [SerializeField] private List<SpriteRenderer> _pebbleInHand;
         [SerializeField] private AnimatorScheduler _animator;
         [SerializeField] private GameTimer _timer;
-        private int _pebblesLeft;
+        private int _pebblesLeft = 3;
         private int _pickedCard;
         private int _pebblesPicked;       
         private PlayerHolder _playerHolder;
@@ -31,11 +31,6 @@ namespace Infrastructure
             _playerHolder = playerHolder;
         }
 
-        private void Awake()
-        {
-            _pebblesLeft = 3;
-        }
-        
         private void HidePebbles()
         {
             var max = _pebblesLeft + 1;
@@ -92,7 +87,6 @@ namespace Infrastructure
             SetupPebblesInHand();
             yield return new WaitForSeconds(Random.Range(3, 8));
             _animator.ShowEnemyFist();
-           // _gameManager.AiReady = true;
             _timer.StopAI();
         }
         
@@ -100,8 +94,6 @@ namespace Infrastructure
         {
             var seconds = Random.Range(3, 5);
             yield return new WaitForSeconds(seconds);
-          //  ChooseCard(!_gameManager.PlayerTurn);
-            ValuePicked?.Invoke(_pickedCard);
             Picked?.Invoke();
         }
     }
