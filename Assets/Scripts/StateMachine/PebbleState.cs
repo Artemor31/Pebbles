@@ -75,6 +75,7 @@ namespace StateMachine
         private void ShowCards()
         {
             _cards.ShowPebbles();
+            _cards.EnableCollider();
         }
 
         private void HideCards()

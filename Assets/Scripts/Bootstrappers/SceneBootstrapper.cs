@@ -26,7 +26,7 @@ namespace Bootstrappers
             BindSingletons();
             BindGameInfrastructure();
             BindStates();
-            
+
             _gameplayContext = new GameplayContext(Container.Resolve<GameStateMachine>());
         }
 

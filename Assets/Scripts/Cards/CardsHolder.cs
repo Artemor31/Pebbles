@@ -42,7 +42,7 @@ namespace Cards
         {
             foreach (var decorator in _decorators)
             {
-                decorator.SetOpacity(0)
+                decorator.SetOpacity(1)
                     .EnableCollider(false);
             }
         }
@@ -51,7 +51,7 @@ namespace Cards
         {
             foreach (var decorator in _decorators)
             {
-                decorator.SetOpacity(1)
+                decorator.SetOpacity(0)
                          .EnableCollider(true)
                          .EnableAnimator(false);
             }
@@ -67,6 +67,13 @@ namespace Cards
             foreach (var decorator in _decorators)
             {
                 decorator.EnableCollider(false);
+            }
+        }
+        public void EnableCollider()
+        {
+            foreach (var decorator in _decorators)
+            {
+                decorator.EnableCollider(true);
             }
         }
 
