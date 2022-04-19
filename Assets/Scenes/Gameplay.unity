@@ -1174,6 +1174,7 @@ MonoBehaviour:
   _pebbleCardsParent: {fileID: 232844228}
   _valueCardsParent: {fileID: 992334119}
   _animatorScheduler: {fileID: 956772335}
+  _gameTimer: {fileID: 815083303}
 --- !u!114 &328713862
 MonoBehaviour:
   m_ObjectHideFlags: 0
