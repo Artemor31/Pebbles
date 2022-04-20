@@ -38,7 +38,7 @@ namespace StateMachine
         {
             ShowCards();
             StartTimers();
-            _enemy.StartChoosePebbles();
+            _enemy.StartChoosePebbles(OnEnemyPickedPebbles);
         }
 
         public void Exit()
@@ -56,7 +56,7 @@ namespace StateMachine
             CheckNewStateEntry();
         }
 
-        public void EnemyPickedPebbles()
+        public void OnEnemyPickedPebbles()
         {
             _enemyPicked = true;
             CheckNewStateEntry();

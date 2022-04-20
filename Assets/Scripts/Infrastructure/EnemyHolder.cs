@@ -21,28 +21,24 @@ namespace Infrastructure
         [SerializeField] private GameTimer _timer;
         
         private PlayerHolder _playerHolder;
-        private PebbleState _pebbleState;
 
         [Inject]
-        public void Constructor(PlayerHolder playerHolder, PebbleState pebbleState)
+        public void Constructor(PlayerHolder playerHolder)
         {
             _playerHolder = playerHolder;
-            _pebbleState = pebbleState;
         }
 
-        public void StartChoosePebbles()
-        {
-            StartCoroutine(ChoosingPebbles());
-        }
+        public void StartChoosePebbles(Action onComplete) => 
+            StartCoroutine(ChoosingPebbles(onComplete));
 
-        private IEnumerator ChoosingPebbles()
+        private IEnumerator ChoosingPebbles(Action onComplete)
         {
             HidePebbles();
             SetupPebblesInHand();
             yield return new WaitForSeconds(Random.Range(3, 8));
             _animator.ShowEnemyFist();
             _timer.StopAI();
-            _pebbleState.EnemyPickedPebbles();
+            onComplete.Invoke();
         }
 
         private void HidePebbles()
