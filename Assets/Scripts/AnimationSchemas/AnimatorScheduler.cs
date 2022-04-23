@@ -10,7 +10,7 @@ namespace AnimationSchemas
         [SerializeField] private Animator _enemyHand;
         [SerializeField] private Animator _pebblesCards;
 
-        public void ShowCards()
+        public void ShowValueCards()
         {
             _cards.enabled = true;
             _cards.Play("start");

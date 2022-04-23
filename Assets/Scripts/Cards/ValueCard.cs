@@ -20,6 +20,7 @@ namespace Cards
         private bool _drag;
         private float _minY;
         private PlayerHolder _playerHolder;
+        private Vector3 _startScale;
 
         [Inject]
         public void Constructor(PlayerHolder playerHolder)
@@ -27,7 +28,11 @@ namespace Cards
             _playerHolder = playerHolder;
         }
         
-        private void Awake() => _camera = Camera.main;
+        private void Awake()
+        {
+            _camera = Camera.main;
+            _startScale = transform.localScale;
+        }
 
         public void StartDrag()
         {
@@ -44,13 +49,13 @@ namespace Cards
             {
                 //_playerHolder.PickValue(_value);
                 transform.position = _startPos;
-                transform.localScale /= 1.3f;
+                transform.localScale = _startScale;
             }
             else
             {
                 _decorator.SetGreen(0);
                 transform.position = _startPos;
-                transform.localScale /= 1.3f;
+                transform.localScale = _startScale;
             }
         }
 

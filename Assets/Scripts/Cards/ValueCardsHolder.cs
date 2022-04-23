@@ -17,6 +17,12 @@ namespace Cards
             AnimatePop(value, false);
         }
 
+        public void DisableAnimators()
+        {
+            foreach (var decorator in _decorators) 
+                decorator.EnableAnimator(false);
+        }
+
         private void AnimatePop(int value, bool up)
         {
             _decorators[value].Pop(value, up);
