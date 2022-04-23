@@ -9,10 +9,7 @@ namespace Infrastructure
 {
     public class PlayerHolder : MonoBehaviour
     {
-        public Action<int> PickedValue;
-        public Action Picked;
-
-        public int PebblesLeft { get; private set; }
+        public int PebblesLeft { get; private set; } = 3;
         public int PebblesPicked { get; set; }
         public int CardValue { get; set; }
 
@@ -20,12 +17,6 @@ namespace Infrastructure
         [SerializeField] private List<SpriteRenderer> _handPebbles;
         [SerializeField] private SpriteRenderer _noPebbleSign;
         [SerializeField] private AnimatorScheduler _animator;
-
-        
-        private void Start()
-        {
-            PebblesLeft = 3;
-        }
 
         public void ShowFist()
         {
@@ -53,13 +44,6 @@ namespace Infrastructure
                 _fistPebbles[i].enabled = true;
                 _handPebbles[i].enabled = true;
             }
-        }
-
-        public void PickValue(int value)
-        {
-            CardValue = value;
-            PickedValue?.Invoke(value);
-            Picked?.Invoke();
         }
     }
 }

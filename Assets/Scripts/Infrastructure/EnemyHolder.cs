@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using AnimationSchemas;
+using StateMachine;
 using UnityEngine;
 using Utils;
 using Zenject;
@@ -11,58 +12,67 @@ namespace Infrastructure
 {
     public class EnemyHolder : MonoBehaviour
     {
-        public Action<int> ValuePicked;
-        public Action Picked;
-        
-        public int PebblesPicked => _pebblesPicked;
-        public int PickedCard => _pickedCard;
+        public int PebblesPicked { get; private set; }
+        public int PickedCard { get; private set; }
+        public int PebblesLeft { get; set; } = 3;
 
         [SerializeField] private List<SpriteRenderer> _pebbleInHand;
         [SerializeField] private AnimatorScheduler _animator;
         [SerializeField] private GameTimer _timer;
-        private int _pebblesLeft = 3;
-        private int _pickedCard;
-        private int _pebblesPicked;       
-        private PlayerHolder _playerHolder;
         
+        private PlayerHolder _playerHolder;
+
         [Inject]
         public void Constructor(PlayerHolder playerHolder)
         {
             _playerHolder = playerHolder;
         }
 
+        public void StartChoosePebbles(Action onComplete) => 
+            StartCoroutine(ChoosingPebbles(onComplete));
+
+        private IEnumerator ChoosingPebbles(Action onComplete)
+        {
+            HidePebbles();
+            SetupPebblesInHand();
+            yield return new WaitForSeconds(Random.Range(3, 8));
+            _animator.ShowEnemyFist();
+            _timer.StopAI();
+            onComplete.Invoke();
+        }
+
         private void HidePebbles()
         {
-            var max = _pebblesLeft + 1;
-            _pebblesPicked = Random.Range(0, max);
+            var max = PebblesLeft + 1;
+            PebblesPicked = Random.Range(0, max);
         }
 
         private void ChooseCard(bool firstTurn)
         {
             if (firstTurn)
             {
-                var maxInclusive = _pebblesPicked + _playerHolder.PebblesLeft + 1;
-                _pickedCard = Random.Range(_pebblesPicked, maxInclusive);
+                var maxInclusive = PebblesPicked + _playerHolder.PebblesLeft + 1;
+                PickedCard = Random.Range(PebblesPicked, maxInclusive);
             }
             else
             {
                 var stMax = _playerHolder.PebblesLeft;
 
                 var min = _playerHolder.CardValue <= stMax
-                           ? _pebblesPicked
-                           : _pebblesPicked + (_playerHolder.CardValue - stMax);
+                           ? PebblesPicked
+                           : PebblesPicked + (_playerHolder.CardValue - stMax);
 
                 var max = _playerHolder.CardValue > 0
-                           ? _playerHolder.PebblesLeft + _pebblesPicked
-                           : _playerHolder.CardValue + _pebblesPicked;
+                           ? _playerHolder.PebblesLeft + PebblesPicked
+                           : _playerHolder.CardValue + PebblesPicked;
 
-                _pickedCard = Random.Range(min, max + 1);
+                PickedCard = Random.Range(min, max + 1);
 
-                if (_pickedCard == _playerHolder.CardValue)
+                if (PickedCard == _playerHolder.CardValue)
                 {
-                    _pickedCard = _pickedCard == 6 
-                                ? _pickedCard - 1 
-                                : _pebblesPicked + 1;
+                    PickedCard = PickedCard == 6 
+                                ? PickedCard - 1 
+                                : PebblesPicked + 1;
                 }
             }
         }
@@ -74,27 +84,6 @@ namespace Infrastructure
 
             for (var i = 0; i < PebblesPicked; i++) 
                 _pebbleInHand[i].enabled = true;
-        }
-
-        public void StartChoosePebbles()
-        {
-            StartCoroutine(ChoosingPebbles());
-        }
-
-        private IEnumerator ChoosingPebbles()
-        {
-            HidePebbles();
-            SetupPebblesInHand();
-            yield return new WaitForSeconds(Random.Range(3, 8));
-            _animator.ShowEnemyFist();
-            _timer.StopAI();
-        }
-        
-        public IEnumerator PickingCard()   
-        {
-            var seconds = Random.Range(3, 5);
-            yield return new WaitForSeconds(seconds);
-            Picked?.Invoke();
         }
     }
 }

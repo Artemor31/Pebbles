@@ -1,7 +1,7 @@
-﻿using AnimationSchemas;
+﻿using System;
+using AnimationSchemas;
 using Infrastructure;
 using Cards;
-using Unity.VisualScripting;
 using Utils;
 
 namespace StateMachine
@@ -23,7 +23,8 @@ namespace StateMachine
                            PlayerHolder player,
                            EnemyHolder enemy,
                            PebbleCardsParent cardsParent, 
-                           AnimatorScheduler animator,GameTimer timer)
+                           AnimatorScheduler animator,
+                           GameTimer timer)
         {
             _stateMachine = stateMachine;
             _player = player;
@@ -37,15 +38,28 @@ namespace StateMachine
         {
             ShowCards();
             StartTimers();
-            _player.Picked += PlayerValuePicked;
-            _enemy.Picked += EnemyValuePicked;
-            _enemy.StartChoosePebbles();
+            _enemy.StartChoosePebbles(OnEnemyPickedPebbles);
         }
 
         public void Exit()
         {
-            ResetTimers();
+            _timer.StopPlayer();
             HideCards();
+        }
+
+        public void PlayerPickedPebbles(int value)
+        {
+            _playerReady = true;
+            _player.PebblesPicked = value;
+            _animator.HidePebbleCards();
+            _player.ShowFist();
+            CheckNewStateEntry();
+        }
+
+        public void OnEnemyPickedPebbles()
+        {
+            _enemyPicked = true;
+            CheckNewStateEntry();
         }
 
         private void CheckNewStateEntry()
@@ -54,28 +68,10 @@ namespace StateMachine
                 _stateMachine.Enter<SetupValueCardsState>();
         }
 
-        private void PlayerValuePicked()
-        {
-            _playerReady = true;
-            CheckNewStateEntry();
-        }
-
-        private void EnemyValuePicked()
-        {
-            _enemyPicked = true;
-            CheckNewStateEntry();
-        }
-
         private void StartTimers()
         {
             _timer.StartAI();
             _timer.StartPlayer();
-        }
-
-        private void ResetTimers()
-        {
-            _timer.StopAI();
-            _timer.StopPlayer();
         }
 
         private void ShowCards()
@@ -87,13 +83,6 @@ namespace StateMachine
         private void HideCards()
         {
             _cards.HidePebbles();
-        }
-        
-        public void PlayerPickedPebbles(int value)
-        {
-            _player.PebblesPicked = value;
-            _animator.HidePebbleCards();
-            _player.ShowFist();
         }
     }
 }

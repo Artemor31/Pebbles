@@ -24,8 +24,10 @@ namespace Cards
         private PebbleState _pebbleState;
 
         [Inject]
-        public void Constructor(PebbleState pebbleState) => 
+        public void Constructor(PebbleState pebbleState)
+        {
             _pebbleState = pebbleState;
+        }
 
         private void Awake() => _camera = Camera.main;
 
