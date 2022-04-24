@@ -6,26 +6,22 @@ namespace Cards
     {
         public ValueCardsHolder(ICard[] cards, AnimatorScheduler animatorScheduler)
             : base(cards, animatorScheduler) { }
+
+        public void ShowValueCards()
+        {
+            ShowValueCards();
+        }
         
-        public void PopOut(int value)
-        {
-            AnimatePop(value, true);
-        }
+        public void PopOut(int value) => AnimatePop(value, true);
 
-        public void PopIn(int value)
-        {
-            AnimatePop(value, false);
-        }
+        public void PopIn(int value) => AnimatePop(value, false);
 
-        public void DisableAnimators()
+        private void DisableAnimators()
         {
             foreach (var decorator in _decorators) 
                 decorator.EnableAnimator(false);
         }
 
-        private void AnimatePop(int value, bool up)
-        {
-            _decorators[value].Pop(value, up);
-        }
+        private void AnimatePop(int value, bool up) => _decorators[value].Pop(value, up);
     }
 }

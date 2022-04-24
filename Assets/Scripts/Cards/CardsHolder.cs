@@ -17,65 +17,50 @@ namespace Cards
                                 .ToArray();
         }
 
-        public void ResetView()
+        private void SetRed(int value) => _decorators[value].SetRed(0.6f);
+
+        private void HideValue() => _animatorScheduler.HideCards();
+
+        protected void ResetView()
         {
             foreach (var decorator in _decorators)
             {
-                decorator.SetOpacity(1)
+                decorator.SetVisibility(1)
                          .SetGreen(0)
-                         .SetRed(0);
+                         .SetRed(0)
+                         .EnableCollider(false);
             }
         }
 
-        public void ShowValue()
-        {
-            ResetView();
-            _animatorScheduler.ShowPebbleCards();
-        }
-
-        public void HideValue()
-        {
-            _animatorScheduler.HideCards();
-        }
-        
-        public void SetInactive()
+        private void SetActive()
         {
             foreach (var decorator in _decorators)
             {
-                decorator.SetOpacity(1)
-                    .EnableCollider(false);
-            }
-        }
-
-        public void SetActive()
-        {
-            foreach (var decorator in _decorators)
-            {
-                decorator.SetOpacity(0)
+                decorator.SetVisibility(0)
                          .EnableCollider(true)
                          .EnableAnimator(false);
             }
         }
 
-        public void SetRed(int value)
-        {
-            _decorators[value].SetRed(0.6f);
-        }
-
-        public void DisableCollider()
+        private void SetInactive()
         {
             foreach (var decorator in _decorators)
             {
+                decorator.SetVisibility(1)
+                         .EnableCollider(false);
+            }
+        }
+
+        private void DisableCollider()
+        {
+            foreach (var decorator in _decorators) 
                 decorator.EnableCollider(false);
-            }
         }
-        public void EnableCollider()
+        
+        private void EnableCollider()
         {
-            foreach (var decorator in _decorators)
-            {
+            foreach (var decorator in _decorators) 
                 decorator.EnableCollider(true);
-            }
         }
-
     }
 }

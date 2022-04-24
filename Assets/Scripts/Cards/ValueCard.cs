@@ -47,7 +47,7 @@ namespace Cards
             _drag = false;
             if (transform.position.y - _minY < 0.001f)
             {
-                //_playerHolder.PickValue(_value);
+                _playerHolder.CardValue = _value;
                 transform.position = _startPos;
                 transform.localScale = _startScale;
             }

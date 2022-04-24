@@ -19,19 +19,12 @@ namespace StateMachine
         public void Enter()
         {
             SetupPlayersView();
-            ResetPebbleCards();
             _stateMachine.Enter<PebbleState>();
         }
 
         public void Exit()
         {
             
-        }
-
-        private void ResetPebbleCards()
-        {
-            _cards.ResetView();
-            _cards.DisableCollider();
         }
 
         private void SetupPlayersView()

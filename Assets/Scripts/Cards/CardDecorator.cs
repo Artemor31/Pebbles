@@ -22,7 +22,7 @@ namespace Cards
             return this;
         }
 
-        public CardDecorator SetOpacity(float value)
+        public CardDecorator SetVisibility(float value)
         {
             _cover.color = new Color(1, 1, 1, value);
             return this;

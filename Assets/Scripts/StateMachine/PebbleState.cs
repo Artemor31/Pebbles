@@ -36,7 +36,7 @@ namespace StateMachine
 
         public void Enter()
         {
-            ShowCards();
+            _cards.ShowPebbles();
             StartTimers();
             _enemy.StartChoosePebbles(OnEnemyPickedPebbles);
         }
@@ -44,7 +44,7 @@ namespace StateMachine
         public void Exit()
         {
             _timer.StopPlayer();
-            HideCards();
+            _cards.HidePebbles();
         }
 
         public void PlayerPickedPebbles(int value)
@@ -56,7 +56,7 @@ namespace StateMachine
             CheckNewStateEntry();
         }
 
-        public void OnEnemyPickedPebbles()
+        private void OnEnemyPickedPebbles()
         {
             _enemyPicked = true;
             CheckNewStateEntry();
@@ -72,17 +72,6 @@ namespace StateMachine
         {
             _timer.StartAI();
             _timer.StartPlayer();
-        }
-
-        private void ShowCards()
-        {
-            _cards.ShowPebbles();
-            _cards.EnableCollider();
-        }
-
-        private void HideCards()
-        {
-            _cards.HidePebbles();
         }
     }
 }
