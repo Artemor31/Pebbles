@@ -50,17 +50,5 @@ namespace Cards
                          .EnableCollider(false);
             }
         }
-
-        private void DisableCollider()
-        {
-            foreach (var decorator in _decorators) 
-                decorator.EnableCollider(false);
-        }
-        
-        private void EnableCollider()
-        {
-            foreach (var decorator in _decorators) 
-                decorator.EnableCollider(true);
-        }
     }
 }

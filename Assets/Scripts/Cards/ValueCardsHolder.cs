@@ -9,9 +9,10 @@ namespace Cards
 
         public void ShowValueCards()
         {
-            ShowValueCards();
+            ResetView();
+            _animatorScheduler.ShowValueCards();
         }
-        
+
         public void PopOut(int value) => AnimatePop(value, true);
 
         public void PopIn(int value) => AnimatePop(value, false);

@@ -30,20 +30,10 @@ namespace Infrastructure
         public void StartChoosePebbles(Action onComplete) => 
             StartCoroutine(ChoosingPebbles(onComplete));
 
-        private IEnumerator ChoosingPebbles(Action onComplete)
+        public IEnumerator StartChoosingCards(bool firstTurn)
         {
-            HidePebbles();
-            SetupPebblesInHand();
-            yield return new WaitForSeconds(Random.Range(3, 8));
-            _animator.ShowEnemyFist();
-            _timer.StopAI();
-            onComplete.Invoke();
-        }
-
-        private void HidePebbles()
-        {
-            var max = PebblesLeft + 1;
-            PebblesPicked = Random.Range(0, max);
+            yield return new WaitForSeconds(4);
+            ChooseCard(firstTurn);
         }
 
         private void ChooseCard(bool firstTurn)
@@ -58,22 +48,38 @@ namespace Infrastructure
                 var stMax = _playerHolder.PebblesLeft;
 
                 var min = _playerHolder.CardValue <= stMax
-                            ? PebblesPicked
-                            : PebblesPicked + (_playerHolder.CardValue - stMax);
+                    ? PebblesPicked
+                    : PebblesPicked + (_playerHolder.CardValue - stMax);
 
                 var max = _playerHolder.CardValue > 0
-                           ? _playerHolder.PebblesLeft + PebblesPicked
-                           : _playerHolder.CardValue + PebblesPicked;
+                    ? _playerHolder.PebblesLeft + PebblesPicked
+                    : _playerHolder.CardValue + PebblesPicked;
 
                 CardValue = Random.Range(min, max + 1);
 
                 if (CardValue == _playerHolder.CardValue)
                 {
                     CardValue = CardValue == 6
-                              ? CardValue - 1
-                              : PebblesPicked + 1;
+                        ? CardValue - 1
+                        : PebblesPicked + 1;
                 }
             }
+        }
+
+        private IEnumerator ChoosingPebbles(Action onComplete)
+        {
+            HidePebbles();
+            SetupPebblesInHand();
+            yield return new WaitForSeconds(Random.Range(3, 8));
+            _animator.ShowEnemyFist();
+            _timer.StopAI();
+            onComplete.Invoke();
+        }
+
+        private void HidePebbles()
+        {
+            var max = PebblesLeft + 1;
+            PebblesPicked = Random.Range(0, max);
         }
 
         private void SetupPebblesInHand()
