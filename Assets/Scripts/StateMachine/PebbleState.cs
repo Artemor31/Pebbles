@@ -1,5 +1,6 @@
 ﻿using System;
 using AnimationSchemas;
+using Bootstrappers;
 using Infrastructure;
 using Cards;
 using Utils;
@@ -24,20 +25,21 @@ namespace StateMachine
                            EnemyHolder enemy,
                            PebbleCardsParent cardsParent, 
                            AnimatorScheduler animator,
-                           GameTimer timer)
+                           GameTimer timer,
+                           ICoroutineRunner coroutineRunner)
         {
             _stateMachine = stateMachine;
             _player = player;
             _enemy = enemy;
             _animator = animator;
             _timer = timer;
-            _cards = new PebblesCardHolder(cardsParent.Cards, animator);
+            _cards = new PebblesCardHolder(cardsParent.Cards, animator, coroutineRunner);
         }
 
         public void Enter()
         {
-            _cards.ShowPebbles();
             StartTimers();
+            _cards.ShowPebbles();
             _enemy.StartChoosePebbles(OnEnemyPickedPebbles);
         }
 

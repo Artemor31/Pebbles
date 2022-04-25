@@ -13,30 +13,29 @@ namespace Cards
         {
             _cards = cards;
             _animatorScheduler = animatorScheduler;
-            _decorators = _cards.Select(c => c.Decorator)
+            _decorators = _cards.Select(c => c.Decorator)   
                                 .ToArray();
         }
 
-        private void SetRed(int value) => _decorators[value].SetRed(0.6f);
-
-        private void HideValue() => _animatorScheduler.HideCards();
-
-        protected void ResetView()
+        public void ResetView()
         {
             foreach (var decorator in _decorators)
             {
                 decorator.SetVisibility(1)
                          .SetGreen(0)
                          .SetRed(0)
-                         .EnableCollider(false);
+                         .EnableCollider(true)
+                         .EnableAnimator(true);
             }
         }
+
+        private void SetRed(int value) => _decorators[value].SetRed(0.6f);
 
         private void SetActive()
         {
             foreach (var decorator in _decorators)
             {
-                decorator.SetVisibility(0)
+                decorator.SetVisibility(1)
                          .EnableCollider(true)
                          .EnableAnimator(false);
             }
@@ -46,7 +45,7 @@ namespace Cards
         {
             foreach (var decorator in _decorators)
             {
-                decorator.SetVisibility(1)
+                decorator.SetVisibility(0)
                          .EnableCollider(false);
             }
         }

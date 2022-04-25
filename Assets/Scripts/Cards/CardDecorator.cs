@@ -36,7 +36,10 @@ namespace Cards
 
         public CardDecorator EnableAnimator(bool on)
         {
-            GetComponent<Animator>().enabled = on;
+            var animator = GetComponent<Animator>();
+            if (animator == null) return this;
+            
+            animator .enabled = on;
             return this;
         }
 
