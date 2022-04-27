@@ -31,12 +31,7 @@ namespace StateMachine
         
         public void Enter()
         {
-            _coroutineRunner.RunCoroutine(WaitForCards());
-            
-            if (GameplayContext.PlayerTurn)
-                StartPlayerTurn();
-            else
-                StartEnemyTurn();
+            _coroutineRunner.RunCoroutine(DelayStage());
         }
 
         public void Exit() { }
@@ -52,9 +47,15 @@ namespace StateMachine
             _timer.StartPlayer();
         }
 
-        private IEnumerator WaitForCards()
+        private IEnumerator DelayStage()
         {
             yield return new WaitForSeconds(1f);
+            
+            if (GameplayContext.PlayerTurn)
+                StartPlayerTurn();
+            else
+                StartEnemyTurn();
+
         }
     }
 }
